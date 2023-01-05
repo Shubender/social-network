@@ -1,6 +1,13 @@
 import { Component, FormEvent } from "react";
 
-export class Registration extends Component {
+interface RegistrationState {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+}
+
+export class Registration extends Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,15 +28,37 @@ export class Registration extends Component {
         evt.preventDefault();
 
         // make POST request with fetch
+        fetch("/registration/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                email: this.state.email,
+                password: this.state.password,
+            }),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log("Success: ", data);
+                location.reload();
+            })
+            .catch((err) => {
+                console.log("Reg error: ", err);
+            });
     };
 
     render() {
         console.log("state: ", this.state);
         return (
             <div>
-                <h1>Welcome to MY SOCIAL NETWORK</h1>
+                <h1>
+                    Welcome to <br /> MY SOCIAL NETWORK
+                </h1>
                 {/* <LogoComponent/> */}
-                <p>Lorum ipsum</p>
+                <p>Please Register:</p>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <span>Firstname</span>
@@ -40,15 +69,21 @@ export class Registration extends Component {
                     </div>
                     <div>
                         <span>Lastname</span>
-                        {/* <input /> */}
+                        <input
+                            name="lastname"
+                            onChange={this.handleInputChange}
+                        />
                     </div>
                     <div>
                         <span>Email</span>
-                        {/* <input /> */}
+                        <input name="email" onChange={this.handleInputChange} />
                     </div>
                     <div>
                         <span>Password</span>
-                        {/* <input /> */}
+                        <input
+                            name="password"
+                            onChange={this.handleInputChange}
+                        />
                     </div>
                     <button>Register</button>
                 </form>

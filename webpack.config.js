@@ -18,8 +18,6 @@ module.exports = () => ({
     },
     devServer: {
         static: path.join(__dirname, "client", "public"),
-        // devtool: "source-map",
-
         proxy: {
             "/": {
                 target: "http://localhost:3001",

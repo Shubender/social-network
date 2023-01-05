@@ -9,9 +9,8 @@ const path = require("path");
 const { PORT = 3001 } = process.env;
 
 const { addUserData } = require("./db.js");
-let fName;
-let lName;
-let showWarning = false;
+
+// let showWarning = false;
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -59,26 +58,31 @@ app.get("*", function (req, res) {
 });
 
 app.post("/registration", (req, res) => {
-    fName = req.body.fname;
-    lName = req.body.lname;
-    let regEmail = req.body.email;
-    let regPass = req.body.password;
-
-    if (fName === "" || lName === "" || regEmail === "" || regPass === "") {
-        // console.log('user data: ', fName, lName, regEmail, regPass);
-        showWarning = true;
+    const { firstname, lastname, email, password } = req.body;
+    if (
+        firstname === "" ||
+        lastname === "" ||
+        email === "" ||
+        password === ""
+    ) {
+        // showWarning = true;
         res.redirect("/registration/");
         return;
     }
 
-    hashPass(regPass).then((hash) => {
+    hashPass(password).then((hash) => {
         // console.log("hashed data: ", hash);
-        addUserData(fName, lName, regEmail, hash)
+        addUserData(firstname, lastname, email, hash)
             .then((data) => {
                 req.session.userId = data.rows[0].id;
-                res.redirect("/profile/");
+                // console.log("req.session.userId: ", req.session.userId);
+                res.json({ success: true });
+                // res.redirect("/");
             })
-            .catch((err) => console.log("Register error: ", err));
+            .catch((err) => {
+                console.log("Register error: ", err);
+                res.json({ success: false });
+            });
     });
 });
 
