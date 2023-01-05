@@ -49,7 +49,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(helmet());
 
 app.get("/user/id.json", (req, res) => {
-    res.json({ userId: null }); // instead of null. use value from req.session
+    res.json({ userId: null }); // instead of null. use value from req.session () - req.session.userId - error!
 });
 
 app.get("*", function (req, res) {
@@ -60,30 +60,27 @@ app.get("*", function (req, res) {
 app.post("/registration", (req, res) => {
     const { firstname, lastname, email, password } = req.body;
     if (
-        firstname === "" ||
-        lastname === "" ||
-        email === "" ||
-        password === ""
+        firstname !== "" &&
+        lastname !== "" &&
+        email !== "" &&
+        password !== ""
     ) {
-        // showWarning = true;
-        res.redirect("/registration/");
-        return;
+        hashPass(password).then((hash) => {
+            // console.log("hashed data: ", hash);
+            addUserData(firstname, lastname, email, hash)
+                .then((data) => {
+                    req.session.userId = data.rows[0].id;
+                    // console.log("req.session.userId: ", req.session.userId);
+                    res.json({ success: true, validation: true });
+                })
+                .catch((err) => {
+                    console.log("Register error: ", err);
+                    res.json({ success: false });
+                });
+        });
+    } else {
+        res.json({validation: false});
     }
-
-    hashPass(password).then((hash) => {
-        // console.log("hashed data: ", hash);
-        addUserData(firstname, lastname, email, hash)
-            .then((data) => {
-                req.session.userId = data.rows[0].id;
-                // console.log("req.session.userId: ", req.session.userId);
-                res.json({ success: true });
-                // res.redirect("/");
-            })
-            .catch((err) => {
-                console.log("Register error: ", err);
-                res.json({ success: false });
-            });
-    });
 });
 
 app.listen(PORT, function () {

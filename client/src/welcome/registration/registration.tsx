@@ -1,13 +1,15 @@
 import { Component, FormEvent } from "react";
+// import { Logo } from "../../components/logo/logo";
+
 
 interface RegistrationState {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
+    firstname?: string;
+    lastname?: string;
+    email?: string;
+    password?: string;
 }
 
-export class Registration extends Component<any, any> {
+export class Registration extends Component<any, RegistrationState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,7 +45,10 @@ export class Registration extends Component<any, any> {
             })
             .then((data) => {
                 console.log("Success: ", data);
-                location.reload();
+                if (!data.validation) {
+                    alert("Fill all Data!");
+                }
+                // location.reload();
             })
             .catch((err) => {
                 console.log("Reg error: ", err);
@@ -58,6 +63,8 @@ export class Registration extends Component<any, any> {
                     Welcome to <br /> MY SOCIAL NETWORK
                 </h1>
                 {/* <LogoComponent/> */}
+                {/* <Logo /> */}
+
                 <p>Please Register:</p>
                 <form onSubmit={this.handleSubmit}>
                     <div>
