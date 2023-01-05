@@ -1,6 +1,3 @@
-
-function Logo() {
-    return <img src="../public/olympics.jpg" alt="Logo" />;
+export function Logo() {
+    return <img src="olympics.jpg" alt="Logo" />;
 }
-
-export default Logo;

@@ -1,6 +1,5 @@
 import { Component, FormEvent } from "react";
-// import { Logo } from "../../components/logo/logo";
-
+import { Logo } from "../../components/logo/logo";
 
 interface RegistrationState {
     firstname?: string;
@@ -63,7 +62,7 @@ export class Registration extends Component<any, RegistrationState> {
                     Welcome to <br /> MY SOCIAL NETWORK
                 </h1>
                 {/* <LogoComponent/> */}
-                {/* <Logo /> */}
+                <Logo />
 
                 <p>Please Register:</p>
                 <form onSubmit={this.handleSubmit}>
