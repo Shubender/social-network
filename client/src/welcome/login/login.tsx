@@ -2,21 +2,17 @@ import { Component, FormEvent } from "react";
 import { redirect, Link } from "react-router-dom";
 import { ValidationErr } from "../../components/validation-err";
 
-interface RegistrationState {
-    firstname?: string;
-    lastname?: string;
+interface LoginState {
     email?: string;
     password?: string;
     error: boolean;
 }
 
-export class Registration extends Component<any, any> {
+export class Login extends Component<any, any> {
     // need fix any type with boolean
     constructor(props) {
         super(props);
         this.state = {
-            firstname: "",
-            lastname: "",
             email: "",
             password: "",
             error: false,
@@ -33,12 +29,10 @@ export class Registration extends Component<any, any> {
         evt.preventDefault();
 
         // make POST request with fetch
-        fetch("/registration/", {
+        fetch("/login/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                firstname: this.state.firstname,
-                lastname: this.state.lastname,
                 email: this.state.email,
                 password: this.state.password,
             }),
@@ -49,11 +43,14 @@ export class Registration extends Component<any, any> {
             .then((data) => {
                 console.log("Success: ", data);
                 if (!data.validation) {
-                    // alert("Fill all Data!");
+                    // alert("Something went wrong. Please try again!");
                     this.setState({ error: true });
+                    return;
                 }
-                return redirect("/");
-                // location.reload();
+
+                this.setState({ error: false });
+                // return redirect("/");
+                location.reload();
             })
             .catch((err) => {
                 console.log("Reg error: ", err);
@@ -64,23 +61,9 @@ export class Registration extends Component<any, any> {
         console.log("state: ", this.state);
         return (
             <div>
-                <p>Please Register:</p>
+                <p>Please Login:</p>
                 {this.state.error && <ValidationErr />}
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <span>Firstname</span>
-                        <input
-                            name="firstname"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <span>Lastname</span>
-                        <input
-                            name="lastname"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
                     <div>
                         <span>Email</span>
                         <input name="email" onChange={this.handleInputChange} />
@@ -92,9 +75,9 @@ export class Registration extends Component<any, any> {
                             onChange={this.handleInputChange}
                         />
                     </div>
-                    <button>Register</button>
+                    <button>Login</button>
                 </form>
-                <Link to="/login">Click here to Log in!</Link>
+                <Link to="/">Click here to Register!</Link>
             </div>
         );
     }

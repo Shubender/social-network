@@ -8,9 +8,9 @@ const compression = require("compression");
 const path = require("path");
 const { PORT = 3001 } = process.env;
 
-const { addUserData } = require("./db.js");
+const { addUserData, getUserByEmail } = require("./db.js");
 
-// let showWarning = false;
+let dbHash;
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -79,7 +79,38 @@ app.post("/registration", (req, res) => {
                 });
         });
     } else {
-        res.json({validation: false});
+        res.json({ validation: false });
+    }
+});
+
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    if (email !== "" && password !== "") {
+        getUserByEmail(email)
+            .then((data) => {
+                // console.log("all data: ", data);
+                if (data.rowCount === 0) {
+                    // console.log("rowCount: ", data.rowCount);
+                    res.json({ validation: false });
+                    return;
+                }
+                // console.log("user from DB: ", data.rows);
+                dbHash = data.rows[0].password;
+                // console.log("Hash from DB: ", dbHash);
+                compare(password, dbHash, function (err, result) {
+                    if (result) {
+                        // console.log("compare: ", result);
+                        req.session.userId = data.rows[0].id;
+                    } else {
+                        // console.log("Password not match!", err);
+                        res.json({ validation: false });
+                        return;
+                    }
+                });
+            })
+            .catch((err) => console.log("Login error: ", err));
+    } else {
+        res.json({ validation: false });
     }
 });
 
