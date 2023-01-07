@@ -6,9 +6,10 @@ const helmet = require("helmet");
 const { hashPass, compare } = require("./encrypt");
 const compression = require("compression");
 const path = require("path");
+const cryptoRandomString = require("crypto-random-string");
 const { PORT = 3001 } = process.env;
 
-const { addUserData, getUserByEmail } = require("./db.js");
+const { addUserData, getUserByEmail, addCode } = require("./db.js");
 // const { emailRes } = require("./ses");
 
 let dbHash;
@@ -123,15 +124,19 @@ app.post("/reset", (req, res) => {
     if (email !== "") {
         getUserByEmail(email)
             .then((data) => {
-                // console.log("getUserByEmail: ", data.rows);
+                // console.log("getUserByEmail: ", data.rows[0].email);
                 if (data.rowCount === 0) {
                     // console.log("getUserByEmail (no data found)");
                     res.json({ validation: false });
                     return;
                 }
-                res.json({ validation: true });
+                const secretCode = cryptoRandomString({
+                    length: 6,
+                });
+                addCode(data.rows[0].email, secretCode);
+                res.json({ validation: true, secretCode: secretCode });
             })
-            .catch((err) => console.log("Check mail error: ", err));
+            .catch((err) => console.log("Check email error: ", err));
     } else {
         // console.log("empty field");
         res.json({ validation: false });
