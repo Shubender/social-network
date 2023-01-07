@@ -1,35 +1,35 @@
 const express = require("express");
 const app = express();
 const helmet = require("helmet");
-const multer = require("multer");
-const uidSafe = require("uid-safe");
+// const multer = require("multer");
+// const uidSafe = require("uid-safe");
 const { hashPass, compare } = require("./encrypt");
 const compression = require("compression");
 const path = require("path");
 const { PORT = 3001 } = process.env;
 
 const { addUserData, getUserByEmail } = require("./db.js");
-const {emailRes}  = require("./ses");
+// const { emailRes } = require("./ses");
 
 let dbHash;
 
-const diskStorage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, path.join(__dirname, "..", "uploads"));
-    },
-    filename: function (req, file, callback) {
-        uidSafe(24).then(function (uid) {
-            callback(null, uid + path.extname(file.originalname));
-        });
-    },
-});
+// const diskStorage = multer.diskStorage({
+//     destination: function (req, file, callback) {
+//         callback(null, path.join(__dirname, "..", "uploads"));
+//     },
+//     filename: function (req, file, callback) {
+//         uidSafe(24).then(function (uid) {
+//             callback(null, uid + path.extname(file.originalname));
+//         });
+//     },
+// });
 
-const uploader = multer({
-    storage: diskStorage,
-    limits: {
-        fileSize: 2097152, //2 mb
-    },
-});
+// const uploader = multer({
+//     storage: diskStorage,
+//     limits: {
+//         fileSize: 2097152, //2 mb
+//     },
+// });
 
 app.use(compression());
 // use the cookie-session middleware. Look in petition project
@@ -112,7 +112,28 @@ app.post("/login", (req, res) => {
             })
             .catch((err) => console.log("Login error: ", err));
     } else {
-        console.log('empty fields');
+        console.log("empty fields");
+        res.json({ validation: false });
+    }
+});
+
+app.post("/reset", (req, res) => {
+    const { email } = req.body;
+    // console.log("email: ", email);
+    if (email !== "") {
+        getUserByEmail(email)
+            .then((data) => {
+                // console.log("getUserByEmail: ", data.rows);
+                if (data.rowCount === 0) {
+                    // console.log("getUserByEmail (no data found)");
+                    res.json({ validation: false });
+                    return;
+                }
+                res.json({ validation: true });
+            })
+            .catch((err) => console.log("Check mail error: ", err));
+    } else {
+        // console.log("empty field");
         res.json({ validation: false });
     }
 });

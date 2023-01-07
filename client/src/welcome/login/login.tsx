@@ -29,7 +29,7 @@ export class Login extends Component<any, any> {
         evt.preventDefault();
 
         // make POST request with fetch
-        fetch("/login/", {
+        fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -77,7 +77,8 @@ export class Login extends Component<any, any> {
                     </div>
                     <button>Login</button>
                 </form>
-                <Link to="/">Click here to Register!</Link><br />
+                <Link to="/">Click here to Register!</Link>
+                <br />
                 <Link to="/reset">Click here to Reset password!</Link>
             </div>
         );
