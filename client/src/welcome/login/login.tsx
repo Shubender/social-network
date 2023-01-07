@@ -77,7 +77,8 @@ export class Login extends Component<any, any> {
                     </div>
                     <button>Login</button>
                 </form>
-                <Link to="/">Click here to Register!</Link>
+                <Link to="/">Click here to Register!</Link><br />
+                <Link to="/reset">Click here to Reset password!</Link>
             </div>
         );
     }

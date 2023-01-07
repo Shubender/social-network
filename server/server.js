@@ -9,6 +9,7 @@ const path = require("path");
 const { PORT = 3001 } = process.env;
 
 const { addUserData, getUserByEmail } = require("./db.js");
+const {emailRes}  = require("./ses");
 
 let dbHash;
 
@@ -88,21 +89,22 @@ app.post("/login", (req, res) => {
     if (email !== "" && password !== "") {
         getUserByEmail(email)
             .then((data) => {
-                // console.log("all data: ", data);
+                // console.log("all data from login: ", data.rows);
                 if (data.rowCount === 0) {
-                    // console.log("rowCount: ", data.rowCount);
+                    // console.log("rowCount (no data found): ", data.rowCount);
                     res.json({ validation: false });
                     return;
                 }
-                // console.log("user from DB: ", data.rows);
+
                 dbHash = data.rows[0].password;
                 // console.log("Hash from DB: ", dbHash);
                 compare(password, dbHash, function (err, result) {
                     if (result) {
-                        // console.log("compare: ", result);
+                        console.log("compare: ", result);
                         req.session.userId = data.rows[0].id;
+                        res.json({ validation: true });
                     } else {
-                        // console.log("Password not match!", err);
+                        console.log("Password not match!", err);
                         res.json({ validation: false });
                         return;
                     }
@@ -110,9 +112,12 @@ app.post("/login", (req, res) => {
             })
             .catch((err) => console.log("Login error: ", err));
     } else {
+        console.log('empty fields');
         res.json({ validation: false });
     }
 });
+
+// emailRes();
 
 app.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
