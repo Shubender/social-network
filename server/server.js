@@ -9,7 +9,13 @@ const path = require("path");
 const cryptoRandomString = require("crypto-random-string");
 const { PORT = 3001 } = process.env;
 
-const { addUserData, getUserByEmail, addCode } = require("./db.js");
+const {
+    addUserData,
+    getUserByEmail,
+    addCode,
+    getCode,
+    changeUserPassword,
+} = require("./db.js");
 // const { emailRes } = require("./ses");
 
 let dbHash;
@@ -118,7 +124,7 @@ app.post("/login", (req, res) => {
     }
 });
 
-app.post("/reset", (req, res) => {
+app.post("/reset/start", (req, res) => {
     const { email } = req.body;
     // console.log("email: ", email);
     if (email !== "") {
@@ -139,6 +145,40 @@ app.post("/reset", (req, res) => {
             .catch((err) => console.log("Check email error: ", err));
     } else {
         // console.log("empty field");
+        res.json({ validation: false });
+    }
+});
+
+app.post("/reset/verify", (req, res) => {
+    const { email, code, password } = req.body;
+    if (password !== "" && code !== "") {
+        getCode(code)
+            .then((data) => {
+                console.log("all data from reset/start: ", data.rows);
+                if (data.rowCount === 0) {
+                    console.log("reset/start (no data found): ", data.rowCount);
+                    res.json({ validation: false });
+                    return;
+                }
+
+                hashPass(password).then((hash) => {
+                    console.log("hashed data (reset): ", hash);
+                    console.log("email after at hash (reset): ", email);
+                    changeUserPassword(hash, email)
+                        .then(() => {
+                            // req.session.userId = data.rows[0].id;
+                            console.log("password changed: ", data.rows[0]);
+                            res.json({ success: true, validation: true });
+                        })
+                        .catch((err) => {
+                            console.log("Reset error: ", err);
+                            res.json({ success: false });
+                        });
+                });
+            })
+            .catch((err) => console.log("Reset error: ", err));
+    } else {
+        console.log("empty fields");
         res.json({ validation: false });
     }
 });
