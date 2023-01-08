@@ -35,7 +35,7 @@ module.exports.getCode = (code) => {
     return db.query(
         `SELECT * FROM reset_codes
         WHERE code = $1
-        AND CURRENT_TIMESTAMP - timestamp < INTERVAL '1 minutes'`,
+        AND CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'`,
         [code]
     );
 };
