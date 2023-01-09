@@ -49,8 +49,7 @@ export class Login extends Component<any, any> {
                 }
 
                 this.setState({ error: false });
-                // return redirect("/");
-                location.reload();
+                // location.replace("/reset/start"); use it to re-render
             })
             .catch((err) => {
                 console.log("Reg error: ", err);
@@ -79,7 +78,7 @@ export class Login extends Component<any, any> {
                 </form>
                 <Link to="/">Click here to Register!</Link>
                 <br />
-                <Link to="/reset">Click here to Reset password!</Link>
+                <Link to="/reset/start">Click here to Reset password!</Link>
             </div>
         );
     }

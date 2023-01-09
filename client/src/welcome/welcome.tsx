@@ -15,7 +15,7 @@ export function Welcome() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/reset" element={<ResetPass />}></Route>
+                        <Route path="/reset/start" element={<ResetPass />}></Route>
                         <Route path="/" element={<Registration />}></Route>
                     </Routes>
                 </BrowserRouter>

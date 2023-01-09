@@ -16,7 +16,7 @@ const {
     getCode,
     changeUserPassword,
 } = require("./db.js");
-// const { emailRes } = require("./ses");
+const { emailRes } = require("./ses");
 
 let dbHash;
 
@@ -154,9 +154,9 @@ app.post("/reset/verify", (req, res) => {
     if (password !== "" && code !== "") {
         getCode(code)
             .then((data) => {
-                console.log("all data from reset/start: ", data.rows);
+                // console.log("all data from reset/start: ", data.rows);
                 if (data.rowCount === 0) {
-                    console.log("reset/start (no data found): ", data.rowCount);
+                    // console.log("reset/start (no data found): ", data.rowCount);
                     res.json({ validation: false });
                     return;
                 }
@@ -167,7 +167,7 @@ app.post("/reset/verify", (req, res) => {
                     changeUserPassword(hash, email)
                         .then(() => {
                             // req.session.userId = data.rows[0].id;
-                            console.log("password changed: ", data.rows[0]);
+                            // console.log("password changed: ", data.rows[0]);
                             res.json({ success: true, validation: true });
                         })
                         .catch((err) => {

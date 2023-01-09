@@ -52,7 +52,7 @@ export class Registration extends Component<any, any> {
                     // alert("Fill all Data!");
                     this.setState({ error: true });
                 }
-                return redirect("/");
+                return redirect("/login");
                 // location.reload();
             })
             .catch((err) => {
