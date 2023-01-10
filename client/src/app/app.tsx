@@ -2,6 +2,7 @@ import { Component } from "react";
 import Logo from "../components/logo";
 import ProfilePic from "../components/ProfilePic";
 import Uploader from "../components/Uploader";
+import Profile from "../components/Profile";
 
 export class App extends Component<any, any> {
     constructor(props) {
@@ -28,6 +29,8 @@ export class App extends Component<any, any> {
             .then((data) => {
                 // console.log("Success app fetch: ", data);
                 // console.log("User image: ", data.userData[0].imageurl);
+                this.setState({ firstname: data.userData[0].firstname });
+                this.setState({ lastname: data.userData[0].lastname });
                 this.setState({ imgFromApp: data.userData[0].imageurl });
                 this.setState({
                     fullname:
@@ -91,14 +94,30 @@ export class App extends Component<any, any> {
                         // changeName={this.changeName}
                     />
                 </div>
-                {this.state.isPopupOpen && (
-                    <Uploader
-                        username={this.state.fullname}
-                        handleFileChange={this.handleFileChange}
-                        handleSubmit={this.handleSubmit}
+                <div className="uploader">
+                    {this.state.isPopupOpen && (
+                        <Uploader
+                            username={this.state.fullname}
+                            handleFileChange={this.handleFileChange}
+                            handleSubmit={this.handleSubmit}
+                        />
+                    )}
+                </div>
+                <div>
+                    <Profile
+                        firstname={this.state.firstname}
+                        lastname={this.state.lastname}
+                        profilePicProps={
+                            <ProfilePic
+                                togglePopup={this.togglePopup}
+                                username={this.state.fullname}
+                                imgFromApp={this.state.imgFromApp}
+                                // changeName={this.changeName}
+                            />
+                        }
                     />
-                )}
-                <h1>Hello from App</h1>
+                </div>
+                <h2>Hello from App</h2>
             </div>
         );
     }

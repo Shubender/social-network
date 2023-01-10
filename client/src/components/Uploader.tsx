@@ -13,7 +13,7 @@ export default class Uploader extends Component<any, any> {
         return (
             <div>
                 <form onSubmit={this.props.handleSubmit}>
-                    <h1>Hi {this.props.username}, upload your file here:</h1>
+                    <h1>Upload your file here:</h1>
                     <input
                         type="file"
                         name="file"

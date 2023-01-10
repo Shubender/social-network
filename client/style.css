@@ -11,6 +11,10 @@ img {
     cursor: pointer;
 }
 
+.big-pic {
+    width: 200px;
+}
+
 /* not work */
 .logo {
     cursor: default;
