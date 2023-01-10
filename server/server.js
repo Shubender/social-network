@@ -197,7 +197,7 @@ app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
 
     const imgUrl = res.locals.fileUrl;
     const userId = req.session.userId;
-    console.log('user ID and file: ', userId, imgUrl );
+    // console.log('user ID and file: ', userId, imgUrl );
 
     addImg(imgUrl, userId).then((data) => {
         if (req.file) {

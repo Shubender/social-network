@@ -21,7 +21,7 @@ export class App extends Component<any, any> {
     }
 
     componentDidMount() {
-        console.log("Component Mounted");
+        // console.log("Component Mounted");
         // fetch information from the server
         fetch("/user")
             .then((res) => res.json())
@@ -29,7 +29,6 @@ export class App extends Component<any, any> {
                 // console.log("Success app fetch: ", data);
                 // console.log("User image: ", data.userData[0].imageurl);
                 this.setState({ imgFromApp: data.userData[0].imageurl });
-
                 this.setState({
                     fullname:
                         data.userData[0].firstname +
@@ -51,7 +50,7 @@ export class App extends Component<any, any> {
     }
 
     handleSubmit(event) {
-        console.log("File uploaded");
+        // console.log("File uploaded");
         event.preventDefault();
 
         const formData = new FormData();
@@ -67,6 +66,7 @@ export class App extends Component<any, any> {
             .then((data) => {
                 console.log("upload file url", data.userFile.imageurl);
                 this.setState({ imgFromApp: data.userFile.imageurl });
+                this.togglePopup();
             })
             .catch((err) => {
                 console.log("handleFileChange error: ", err);

@@ -29,9 +29,8 @@ const s3 = new aws.S3({
 });
 
 function fileUpload(req, res, next) {
-    console.log("file(upload): ", req.file);
     if (!req.file) {
-        console.log("[socialNetwork:s3] file not there");
+        console.log("[socialNetwork:s3] file not there: ", req.file);
         res.statusCode = 400;
         res.send();
     } else {
