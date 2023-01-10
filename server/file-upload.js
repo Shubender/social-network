@@ -3,14 +3,11 @@ const path = require("path");
 const uidSafe = require("uid-safe");
 const aws = require("aws-sdk");
 const fs = require("fs");
+require("dotenv").config();
 
 const { AWS_KEY, AWS_SECRET, AWS_BUCKET } = process.env;
 
 const diskStorage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        // second argument in callback() says WHERE file should be saved
-        callback(null, path.join(__dirname, "..", "uploads"));
-    },
     filename: (req, file, callback) => {
         uidSafe(24).then((uid) => {
             // second argument in callback() specifies the file name
@@ -32,9 +29,9 @@ const s3 = new aws.S3({
 });
 
 function fileUpload(req, res, next) {
-    // console.log("file(upload): ", req.file);
+    console.log("file(upload): ", req.file);
     if (!req.file) {
-        console.log("[imageboard:s3] file not there");
+        console.log("[socialNetwork:s3] file not there");
         res.statusCode = 400;
         res.send();
     } else {
@@ -56,7 +53,7 @@ function fileUpload(req, res, next) {
                 next();
             })
             .catch((err) => {
-                console.log("[imageboard:s3] error uploading to s3", err);
+                console.log("[socialNetwork:s3] error uploading to s3", err);
                 res.sendStatus(500);
             });
     }

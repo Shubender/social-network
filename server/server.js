@@ -1,9 +1,7 @@
 const express = require("express");
 const app = express();
-const helmet = require("helmet");
-const multer = require("multer");
-const uidSafe = require("uid-safe");
-const { fileUpload } = require("./file-upload");
+// const helmet = require("helmet");
+const { uploader, fileUpload } = require("./file-upload");
 const { hashPass, compare } = require("./encrypt");
 const compression = require("compression");
 const path = require("path");
@@ -24,24 +22,6 @@ const {
 
 let dbHash;
 
-const diskStorage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, path.join(__dirname, "..", "uploads"));
-    },
-    filename: function (req, file, callback) {
-        uidSafe(24).then(function (uid) {
-            callback(null, uid + path.extname(file.originalname));
-        });
-    },
-});
-
-//can I use it from file-upload?
-const uploader = multer({
-    storage: diskStorage,
-    limits: {
-        fileSize: 2097152, //2 mb
-    },
-});
 
 app.use(compression());
 // use the cookie-session middleware. Look in petition project
@@ -69,7 +49,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
-app.use(helmet());
+// app.use(helmet());
 
 app.get("/user/id.json", (req, res) => {
     res.json({ userId: req.session.userId });
@@ -213,7 +193,7 @@ app.post("/reset/verify", (req, res) => {
 
 app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
     // If nothing went wrong the file is already in the uploads directory
-    console.log("amazon link from server: ", res.locals.fileUrl);
+    // console.log("amazon link from server: ", res.locals.fileUrl);
 
     const imgUrl = res.locals.fileUrl;
     const userId = req.session.userId;
@@ -221,7 +201,7 @@ app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
 
     addImg(imgUrl, userId).then((data) => {
         if (req.file) {
-            console.log("User data (server): ", data.rows[0]);
+            // console.log("User data (server): ", data.rows[0]);
             res.json({
                 success: true,
                 userFile: data.rows[0],
