@@ -3,6 +3,7 @@ import Logo from "../components/logo";
 import ProfilePic from "../components/ProfilePic";
 import Uploader from "../components/Uploader";
 import Profile from "../components/Profile";
+import BioEditor from "../components/BioEditor";
 
 export class App extends Component<any, any> {
     constructor(props) {
@@ -115,6 +116,7 @@ export class App extends Component<any, any> {
                                 // changeName={this.changeName}
                             />
                         }
+                        bioEditorProps={<BioEditor />}
                     />
                 </div>
                 <h2>Hello from App</h2>
