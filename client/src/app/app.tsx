@@ -109,7 +109,7 @@ export class App extends Component<any, any> {
                         lastname={this.state.lastname}
                         profilePicProps={
                             <ProfilePic
-                                togglePopup={this.togglePopup}
+                                togglePopup={null}
                                 username={this.state.fullname}
                                 imgFromApp={this.state.imgFromApp}
                                 // changeName={this.changeName}
