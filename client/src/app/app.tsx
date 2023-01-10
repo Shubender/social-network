@@ -10,14 +10,15 @@ export class App extends Component<any, any> {
         super(props);
         this.state = {
             isPopupOpen: false,
-            firstname: "",
-            lastname: "",
-            fullname: "",
+            firstname: null,
+            lastname: null,
+            fullname: null,
+            userbio: null,
             file: null,
             imgFromApp: null,
         };
         this.togglePopup = this.togglePopup.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitUpload = this.handleSubmitUpload.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         // this.changeName = this.changeName.bind(this);
     }
@@ -28,11 +29,13 @@ export class App extends Component<any, any> {
         fetch("/user")
             .then((res) => res.json())
             .then((data) => {
-                // console.log("Success app fetch: ", data);
-                // console.log("User image: ", data.userData[0].imageurl);
+                console.log("Success app fetch: ", data.userData[0]);
+
                 this.setState({ firstname: data.userData[0].firstname });
                 this.setState({ lastname: data.userData[0].lastname });
                 this.setState({ imgFromApp: data.userData[0].imageurl });
+                this.setState({ userbio: data.userData[0].userbio });
+
                 this.setState({
                     fullname:
                         data.userData[0].firstname +
@@ -53,7 +56,7 @@ export class App extends Component<any, any> {
         this.setState({ isPopupOpen: !this.state.isPopupOpen });
     }
 
-    handleSubmit(event) {
+    handleSubmitUpload(event) {
         // console.log("File uploaded");
         event.preventDefault();
 
@@ -100,7 +103,7 @@ export class App extends Component<any, any> {
                         <Uploader
                             username={this.state.fullname}
                             handleFileChange={this.handleFileChange}
-                            handleSubmit={this.handleSubmit}
+                            handleSubmitUpload={this.handleSubmitUpload}
                         />
                     )}
                 </div>
