@@ -1,6 +1,6 @@
 import { Component, FormEvent } from "react";
 import { redirect, Link } from "react-router-dom";
-import { ValidationErr } from "../../components/validation-err";
+import ValidationErr from "../../components/validation-err";
 
 interface LoginState {
     email?: string;
@@ -8,7 +8,7 @@ interface LoginState {
     error: boolean;
 }
 
-export class Login extends Component<any, any> {
+export default class Login extends Component<any, any> {
     // need fix any type with boolean
     constructor(props) {
         super(props);
@@ -49,7 +49,7 @@ export class Login extends Component<any, any> {
                 }
 
                 this.setState({ error: false });
-                // location.replace("/reset/start"); use it to re-render
+                location.replace("/");
             })
             .catch((err) => {
                 console.log("Reg error: ", err);

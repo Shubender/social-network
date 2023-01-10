@@ -5,3 +5,7 @@ body {
 img {
     width: 200px;
 }
+
+.user-photo {
+    cursor: pointer;
+}

@@ -24,6 +24,10 @@ module.exports.getUserByEmail = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };
 
+module.exports.getUserById = (userId) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [userId]);
+};
+
 module.exports.addCode = (email, code) => {
     return db.query(
         `INSERT INTO reset_codes (email, code) VALUES ($1, $2) RETURNING *;`,
@@ -37,5 +41,14 @@ module.exports.getCode = (code) => {
         WHERE code = $1
         AND CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'`,
         [code]
+    );
+};
+
+module.exports.addImg = (imgUrl, userId) => {
+    return db.query(
+        `UPDATE users
+        SET imageurl = $1
+        WHERE id = $2;`,
+        [imgUrl, userId]
     );
 };

@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const helmet = require("helmet");
-// const multer = require("multer");
-// const uidSafe = require("uid-safe");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const { fileUpload } = require("./file-upload");
 const { hashPass, compare } = require("./encrypt");
 const compression = require("compression");
 const path = require("path");
@@ -12,31 +13,35 @@ const { PORT = 3001 } = process.env;
 const {
     addUserData,
     getUserByEmail,
+    getUserById,
     addCode,
     getCode,
     changeUserPassword,
+    addImg,
 } = require("./db.js");
-const { emailRes } = require("./ses");
+
+// const { emailRes } = require("./ses");
 
 let dbHash;
 
-// const diskStorage = multer.diskStorage({
-//     destination: function (req, file, callback) {
-//         callback(null, path.join(__dirname, "..", "uploads"));
-//     },
-//     filename: function (req, file, callback) {
-//         uidSafe(24).then(function (uid) {
-//             callback(null, uid + path.extname(file.originalname));
-//         });
-//     },
-// });
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, path.join(__dirname, "..", "uploads"));
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
 
-// const uploader = multer({
-//     storage: diskStorage,
-//     limits: {
-//         fileSize: 2097152, //2 mb
-//     },
-// });
+//can I use it from file-upload?
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152, //2 mb
+    },
+});
 
 app.use(compression());
 // use the cookie-session middleware. Look in petition project
@@ -49,6 +54,16 @@ app.use(
     })
 );
 
+// app.use((req, res, next) => {
+//     console.log("---------------------");
+//     console.log("req.url:", req.url);
+//     console.log("req.method:", req.method);
+//     console.log("req.session:", req.session);
+//     console.log("req.body:", req.body);
+//     console.log("---------------------");
+//     next();
+// });
+
 // use json middleware for POST requests
 app.use(express.json());
 
@@ -57,7 +72,20 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(helmet());
 
 app.get("/user/id.json", (req, res) => {
-    res.json({ userId: null }); // instead of null. use value from req.session () - req.session.userId - error!
+    res.json({ userId: req.session.userId });
+});
+
+app.get("/user", (req, res) => {
+    // console.log("user ID: ", req.session.userId);
+    getUserById(req.session.userId)
+        .then((data) => {
+            // console.log("userData: ", data.rows);
+            res.json({ success: true, userData: data.rows });
+        })
+        .catch((err) => {
+            console.log("Get user error: ", err);
+            res.json({ success: false });
+        });
 });
 
 app.get("*", function (req, res) {
@@ -107,11 +135,11 @@ app.post("/login", (req, res) => {
                 // console.log("Hash from DB: ", dbHash);
                 compare(password, dbHash, function (err, result) {
                     if (result) {
-                        console.log("compare: ", result);
+                        // console.log("compare: ", result);
                         req.session.userId = data.rows[0].id;
                         res.json({ validation: true });
                     } else {
-                        console.log("Password not match!", err);
+                        // console.log("Password not match!", err);
                         res.json({ validation: false });
                         return;
                     }
@@ -162,8 +190,8 @@ app.post("/reset/verify", (req, res) => {
                 }
 
                 hashPass(password).then((hash) => {
-                    console.log("hashed data (reset): ", hash);
-                    console.log("email after at hash (reset): ", email);
+                    // console.log("hashed data (reset): ", hash);
+                    // console.log("email after at hash (reset): ", email);
                     changeUserPassword(hash, email)
                         .then(() => {
                             // req.session.userId = data.rows[0].id;
@@ -181,6 +209,29 @@ app.post("/reset/verify", (req, res) => {
         console.log("empty fields");
         res.json({ validation: false });
     }
+});
+
+app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
+    // If nothing went wrong the file is already in the uploads directory
+    console.log("amazon link from server: ", res.locals.fileUrl);
+
+    const imgUrl = res.locals.fileUrl;
+    const userId = req.session.userId;
+    console.log('user ID and file: ', userId, imgUrl );
+
+    addImg(imgUrl, userId).then((data) => {
+        if (req.file) {
+            console.log("User data (server): ", data.rows[0]);
+            res.json({
+                success: true,
+                userFile: data.rows[0],
+            });
+        } else {
+            res.json({
+                success: false,
+            });
+        }
+    });
 });
 
 // emailRes();

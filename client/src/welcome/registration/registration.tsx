@@ -1,6 +1,6 @@
 import { Component, FormEvent } from "react";
 import { redirect, Link } from "react-router-dom";
-import { ValidationErr } from "../../components/validation-err";
+import ValidationErr from "../../components/validation-err";
 
 interface RegistrationState {
     firstname?: string;
@@ -10,7 +10,7 @@ interface RegistrationState {
     error: boolean;
 }
 
-export class Registration extends Component<any, any> {
+export default class Registration extends Component<any, any> {
     // need fix any type with boolean
     constructor(props) {
         super(props);
@@ -49,11 +49,9 @@ export class Registration extends Component<any, any> {
             .then((data) => {
                 console.log("Success: ", data);
                 if (!data.validation) {
-                    // alert("Fill all Data!");
                     this.setState({ error: true });
                 }
-                return redirect("/login");
-                // location.reload();
+                location.replace("/");
             })
             .catch((err) => {
                 console.log("Reg error: ", err);

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { ValidationErr } from "./validation-err";
+import ValidationErr from "./validation-err";
 
 export default class ResetPass extends Component<any, any> {
     constructor(props) {
