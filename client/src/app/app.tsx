@@ -82,13 +82,15 @@ export class App extends Component<any, any> {
         // console.log("file: ", this.state.file);
         return (
             <div>
-                <Logo />
-                <ProfilePic
-                    togglePopup={this.togglePopup}
-                    username={this.state.fullname}
-                    imgFromApp={this.state.imgFromApp}
-                    // changeName={this.changeName}
-                />
+                <div className="small-pic">
+                    <Logo />
+                    <ProfilePic
+                        togglePopup={this.togglePopup}
+                        username={this.state.fullname}
+                        imgFromApp={this.state.imgFromApp}
+                        // changeName={this.changeName}
+                    />
+                </div>
                 {this.state.isPopupOpen && (
                     <Uploader
                         username={this.state.fullname}

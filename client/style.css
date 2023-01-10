@@ -9,3 +9,7 @@ img {
 .user-photo {
     cursor: pointer;
 }
+
+.small-pic img {
+    width: 70px;
+}

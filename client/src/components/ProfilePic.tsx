@@ -8,7 +8,6 @@ export default function ProfilePic({ togglePopup, username, imgFromApp }) {
         <>
             {/* <button onClick={togglePopup}>Toggle Popup</button> */}
             <img
-                className="user-photo"
                 src={imgFromApp}
                 alt={username}
                 onClick={togglePopup}
