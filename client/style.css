@@ -6,10 +6,12 @@ img {
     width: 200px;
 }
 
-.user-photo {
+.small-pic img {
+    width: 70px;
     cursor: pointer;
 }
 
-.small-pic img {
-    width: 70px;
+/* not work */
+.logo {
+    cursor: default;
 }
