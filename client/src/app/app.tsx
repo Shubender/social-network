@@ -27,7 +27,8 @@ export class App extends Component<any, any> {
             .then((res) => res.json())
             .then((data) => {
                 // console.log("Success app fetch: ", data);
-                // console.log("User name: ", data.userData[0].firstname);
+                // console.log("User image: ", data.userData[0].imageurl);
+                this.setState({ imgFromApp: data.userData[0].imageurl });
 
                 this.setState({
                     fullname:
