@@ -12,7 +12,7 @@ export default class Uploader extends Component<any, any> {
     render() {
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit}>
+                <form onSubmit={this.props.handleSubmitUpload}>
                     <h1>Upload your file here:</h1>
                     <input
                         type="file"
