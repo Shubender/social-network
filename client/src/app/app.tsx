@@ -13,13 +13,16 @@ export class App extends Component<any, any> {
             firstname: null,
             lastname: null,
             fullname: null,
-            userbio: null,
+            userBio: null,
             file: null,
             imgFromApp: null,
         };
         this.togglePopup = this.togglePopup.bind(this);
         this.handleSubmitUpload = this.handleSubmitUpload.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
+        this.handleBioChange = this.handleBioChange.bind(this);
+        this.handleSubmitBio = this.handleSubmitBio.bind(this);
+
         // this.changeName = this.changeName.bind(this);
     }
 
@@ -34,7 +37,7 @@ export class App extends Component<any, any> {
                 this.setState({ firstname: data.userData[0].firstname });
                 this.setState({ lastname: data.userData[0].lastname });
                 this.setState({ imgFromApp: data.userData[0].imageurl });
-                this.setState({ userbio: data.userData[0].userbio });
+                this.setState({ userBio: data.userData[0].userBio });
 
                 this.setState({
                     fullname:
@@ -85,6 +88,35 @@ export class App extends Component<any, any> {
         this.setState({ file: event.target.files[0] });
     }
 
+    handleSubmitBio(event) {
+        console.log("handleSubmitBio: ", event);
+        event.preventDefault();
+
+        fetch("/updatebio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.state.userBio),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log("Bio updated", data);
+                this.setState({ userBio: event.target.value });
+                this.togglePopup();
+            })
+            .catch((err) => {
+                console.log("handleSubmitBio error: ", err);
+            });
+    }
+
+    handleBioChange(event) {
+        console.log("handleBioChange: ", event.target.value);
+        this.setState({ userBio: event.target.value });
+    }
+
     render() {
         // console.log("file: ", this.state.file);
         return (
@@ -119,7 +151,13 @@ export class App extends Component<any, any> {
                                 // changeName={this.changeName}
                             />
                         }
-                        bioEditorProps={<BioEditor />}
+                        bioEditorProps={
+                            <BioEditor
+                                userBio={this.state.userBio}
+                                handleBioChange={this.handleBioChange}
+                                handleSubmitBio={this.handleSubmitBio}
+                            />
+                        }
                     />
                 </div>
                 <h2>Hello from App</h2>
