@@ -35,7 +35,7 @@ export class App extends Component<any, any> {
         fetch("/user")
             .then((res) => res.json())
             .then((data) => {
-                console.log("Success app fetch: ", data.userData[0]);
+                // console.log("Success app fetch: ", data.userData[0]);
 
                 this.setState({ firstname: data.userData[0].firstname });
                 this.setState({ lastname: data.userData[0].lastname });

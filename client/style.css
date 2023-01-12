@@ -15,6 +15,18 @@ img {
     width: 200px;
 }
 
+.new-users {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.new-users img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
 /* not work */
 .logo {
     cursor: default;
