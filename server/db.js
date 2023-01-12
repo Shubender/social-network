@@ -71,3 +71,12 @@ module.exports.getNewUsers = () => {
     LIMIT 3;
     `);
 };
+
+module.exports.getUsersBySearch = (searchUsers) => {
+    return db.query(
+        `SELECT * FROM users 
+        WHERE lastname ILIKE $1
+        ORDER BY created_at DESC`,
+        [searchUsers + "%"]
+    );
+};

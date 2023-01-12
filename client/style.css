@@ -27,6 +27,18 @@ img {
     object-fit: cover;
 }
 
+.found-users {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+}
+
+.found-users img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
 /* not work */
 .logo {
     cursor: default;

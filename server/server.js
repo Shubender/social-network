@@ -18,6 +18,7 @@ const {
     addImg,
     addBio,
     getNewUsers,
+    getUsersBySearch,
 } = require("./db.js");
 
 // const { emailRes } = require("./ses");
@@ -72,13 +73,30 @@ app.get("/user", (req, res) => {
 app.get("/newUsers", (req, res) => {
     getNewUsers()
         .then((data) => {
-            console.log("newUsers: ", data.rows);
+            // console.log("newUsers: ", data.rows);
             res.json({ success: true, newUsers: data.rows });
         })
         .catch((err) => {
             console.log("Get newUsers error: ", err);
             res.json({ success: false });
         });
+});
+
+app.post("/searchUsers", (req, res) => {
+    const searchUsers = req.body.search;
+    // console.log("searchUsers: ", searchUsers);
+
+    if (searchUsers !== '') {
+        getUsersBySearch(searchUsers)
+            .then((data) => {
+                // console.log("getUsersBySearch: ", data.rows);
+                res.json({ success: true, foundUsers: data.rows });
+            })
+            .catch((err) => {
+                console.log("getUsersBySearch error: ", err);
+                res.json({ success: false });
+            });
+    }
 });
 
 app.post("/registration", (req, res) => {
