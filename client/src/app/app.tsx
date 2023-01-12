@@ -37,7 +37,7 @@ export class App extends Component<any, any> {
                 this.setState({ firstname: data.userData[0].firstname });
                 this.setState({ lastname: data.userData[0].lastname });
                 this.setState({ imgFromApp: data.userData[0].imageurl });
-                this.setState({ userBio: data.userData[0].userBio });
+                this.setState({ userBio: data.userData[0].userbio });
 
                 this.setState({
                     fullname:
@@ -84,12 +84,12 @@ export class App extends Component<any, any> {
     }
 
     handleFileChange(event) {
-        console.log("handleFileChange: ", event.target.files[0]);
+        // console.log("handleFileChange: ", event.target.files[0]);
         this.setState({ file: event.target.files[0] });
     }
 
     handleSubmitBio(event) {
-        console.log("handleSubmitBio: ", event);
+        // console.log("handleSubmitBio: ", event);
         event.preventDefault();
 
         fetch("/updatebio", {
@@ -97,15 +97,14 @@ export class App extends Component<any, any> {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(this.state.userBio),
+            body: JSON.stringify({vladik: this.state.userBio}),
         })
             .then((res) => {
                 return res.json();
             })
             .then((data) => {
                 console.log("Bio updated", data);
-                this.setState({ userBio: event.target.value });
-                this.togglePopup();
+                // this.setState({ userBio: event.target.value });
             })
             .catch((err) => {
                 console.log("handleSubmitBio error: ", err);
@@ -113,7 +112,7 @@ export class App extends Component<any, any> {
     }
 
     handleBioChange(event) {
-        console.log("handleBioChange: ", event.target.value);
+        // console.log("handleBioChange: ", event.target.value);
         this.setState({ userBio: event.target.value });
     }
 

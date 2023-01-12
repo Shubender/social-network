@@ -6,7 +6,7 @@ export default class Uploader extends Component<any, any> {
         this.state = {};
     }
     componentDidMount() {
-        console.log("uploader mounted!");
+        // console.log("uploader mounted!");
     }
 
     render() {

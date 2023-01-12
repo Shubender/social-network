@@ -44,6 +44,7 @@ export default function BioEditor(props) {
                         <textarea
                             name="bioFiled"
                             onChange={props.handleBioChange}
+                            value={props.userBio}
                         ></textarea>
                     </div>
                     <button type="submit" className="btn" onClick={onSubmit}>

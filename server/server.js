@@ -16,12 +16,12 @@ const {
     getCode,
     changeUserPassword,
     addImg,
+    addBio,
 } = require("./db.js");
 
 // const { emailRes } = require("./ses");
 
 let dbHash;
-
 
 app.use(compression());
 // use the cookie-session middleware. Look in petition project
@@ -212,6 +212,21 @@ app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
             });
         }
     });
+});
+
+app.post("/updatebio", (req, res) => {
+    const userBio = req.body.vladik;
+    const userId = req.session.userId;
+    console.log("updatebio: ", userId, userBio);
+
+    addBio(userBio, userId)
+        .then((data) => {
+            res.json({ success: true, userBio: data.rows });
+        })
+        .catch((err) => {
+            console.log("updatebio error: ", err);
+            res.json({ success: false });
+        });
 });
 
 // emailRes();
