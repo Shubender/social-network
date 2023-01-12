@@ -1,5 +1,3 @@
-import React from "react";
-
 // need add imgFromApp, changeName to function??
 export default function ProfilePic({ togglePopup, username, imgFromApp }) {
     imgFromApp = imgFromApp || "/no_photo.png";

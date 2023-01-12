@@ -215,7 +215,7 @@ app.post("/upload", uploader.single("file"), fileUpload, function (req, res) {
 });
 
 app.post("/updatebio", (req, res) => {
-    const userBio = req.body.vladik;
+    const userBio = req.body.userBio;
     const userId = req.session.userId;
     console.log("updatebio: ", userId, userBio);
 

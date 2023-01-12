@@ -1,3 +1,19 @@
+import { Navigate } from "react-router";
+
+
 export default function Logo() {
-    return <img src="olympics.jpg" alt="Logo" className="logo" />;
+    
+    // not work
+//     const redirect = () => {
+//         return <Navigate to="/" />;
+//     };
+
+    return (
+        <img
+            src="olympics.jpg"
+            alt="Logo"
+            className="logo"
+            // onClick={redirect}
+        />
+    );
 }

@@ -1,9 +1,12 @@
 import { Component } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Logo from "../components/logo";
 import ProfilePic from "../components/ProfilePic";
 import Uploader from "../components/Uploader";
 import Profile from "../components/Profile";
 import BioEditor from "../components/BioEditor";
+import FindPeople from "../components/FindPeople";
+
 
 export class App extends Component<any, any> {
     constructor(props) {
@@ -97,7 +100,7 @@ export class App extends Component<any, any> {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({vladik: this.state.userBio}),
+            body: JSON.stringify({userBio: this.state.userBio}),
         })
             .then((res) => {
                 return res.json();
@@ -122,6 +125,7 @@ export class App extends Component<any, any> {
             <div>
                 <div className="small-pic">
                     <Logo />
+                    <a href="/users">Find People</a>
                     <ProfilePic
                         togglePopup={this.togglePopup}
                         username={this.state.fullname}
@@ -139,27 +143,45 @@ export class App extends Component<any, any> {
                     )}
                 </div>
                 <div>
-                    <Profile
-                        firstname={this.state.firstname}
-                        lastname={this.state.lastname}
-                        profilePicProps={
-                            <ProfilePic
-                                togglePopup={null}
-                                username={this.state.fullname}
-                                imgFromApp={this.state.imgFromApp}
-                                // changeName={this.changeName}
-                            />
-                        }
-                        bioEditorProps={
-                            <BioEditor
-                                userBio={this.state.userBio}
-                                handleBioChange={this.handleBioChange}
-                                handleSubmitBio={this.handleSubmitBio}
-                            />
-                        }
-                    />
+                    <BrowserRouter>
+                        <Routes>
+                            <Route
+                                path="/users"
+                                element={<FindPeople />}
+                            ></Route>
+                            <Route
+                                path="/"
+                                element={
+                                    <Profile
+                                        firstname={this.state.firstname}
+                                        lastname={this.state.lastname}
+                                        profilePicProps={
+                                            <ProfilePic
+                                                togglePopup={null}
+                                                username={this.state.fullname}
+                                                imgFromApp={
+                                                    this.state.imgFromApp
+                                                }
+                                                // changeName={this.changeName}
+                                            />
+                                        }
+                                        bioEditorProps={
+                                            <BioEditor
+                                                userBio={this.state.userBio}
+                                                handleBioChange={
+                                                    this.handleBioChange
+                                                }
+                                                handleSubmitBio={
+                                                    this.handleSubmitBio
+                                                }
+                                            />
+                                        }
+                                    />
+                                }
+                            ></Route>
+                        </Routes>
+                    </BrowserRouter>
                 </div>
-                <h2>Hello from App</h2>
             </div>
         );
     }
