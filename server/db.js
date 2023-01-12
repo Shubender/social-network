@@ -63,3 +63,11 @@ module.exports.addBio = (userBio, userId) => {
         [userBio, userId]
     );
 };
+
+module.exports.getNewUsers = () => {
+    return db.query(`
+    SELECT * FROM users
+    ORDER BY created_at DESC
+    LIMIT 3;
+    `);
+};
