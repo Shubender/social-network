@@ -11,6 +11,10 @@ img {
     cursor: pointer;
 }
 
+.find-people {
+    cursor: pointer;
+}
+
 .big-pic {
     width: 200px;
 }

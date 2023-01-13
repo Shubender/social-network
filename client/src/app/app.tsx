@@ -124,13 +124,19 @@ export class App extends Component<any, any> {
         this.setState({ userBio: event.target.value });
     }
 
+    assignToUsers = (event) => {
+        event.preventDefault();
+        location.assign("/users");
+        return;
+    };
+
     render() {
         // console.log("file: ", this.state.file);
         return (
             <div>
                 <div className="small-pic">
                     <Logo />
-                    <a href="/users">Find People</a>
+                    <h2 className="find-people" onClick={this.assignToUsers}>Find People</h2>
                     <ProfilePic
                         togglePopup={this.togglePopup}
                         username={this.state.fullname}
@@ -186,7 +192,9 @@ export class App extends Component<any, any> {
                             ></Route>
                             <Route
                                 path="/user/:id"
-                                element={<OtherProfile userId={this.state.userId} />}
+                                element={
+                                    <OtherProfile userId={this.state.userId} />
+                                }
                             ></Route>
                         </Routes>
                     </BrowserRouter>
