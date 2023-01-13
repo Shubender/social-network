@@ -40,8 +40,6 @@ export default function FindPeople() {
             });
     }, [searchUsers]);
 
-    console.log("foundUsers: ", foundUsers);
-
     return (
         <div>
             <h2>Find People</h2>

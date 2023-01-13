@@ -70,6 +70,19 @@ app.get("/user", (req, res) => {
         });
 });
 
+app.get("/api/user/:id", (req, res) => {
+    // console.log("Other user ID: ", req.params.id);
+    getUserById(req.params.id)
+        .then((data) => {
+            // console.log("userData: ", data.rows);
+            res.json({ success: true, userData: data.rows });
+        })
+        .catch((err) => {
+            console.log("Get other user error: ", err);
+            res.json({ success: false });
+        });
+});
+
 app.get("/newUsers", (req, res) => {
     getNewUsers()
         .then((data) => {
@@ -97,7 +110,7 @@ app.post("/searchUsers", (req, res) => {
                 res.json({ success: false });
             });
     } else {
-        res.json({ success: false, foundUsers: '' });
+        res.json({ success: false, foundUsers: "" });
     }
 });
 

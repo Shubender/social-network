@@ -6,7 +6,7 @@ import Uploader from "../components/Uploader";
 import Profile from "../components/Profile";
 import BioEditor from "../components/BioEditor";
 import FindPeople from "../components/FindPeople";
-
+import OtherProfile from "../components/OtherProfile";
 
 export class App extends Component<any, any> {
     constructor(props) {
@@ -17,8 +17,10 @@ export class App extends Component<any, any> {
             lastname: null,
             fullname: null,
             userBio: null,
+            userId: null,
             file: null,
             imgFromApp: null,
+            user: null,
         };
         this.togglePopup = this.togglePopup.bind(this);
         this.handleSubmitUpload = this.handleSubmitUpload.bind(this);
@@ -35,12 +37,14 @@ export class App extends Component<any, any> {
         fetch("/user")
             .then((res) => res.json())
             .then((data) => {
-                // console.log("Success app fetch: ", data.userData[0]);
+                console.log("Success app fetch: ", data.userData[0]);
 
                 this.setState({ firstname: data.userData[0].firstname });
                 this.setState({ lastname: data.userData[0].lastname });
                 this.setState({ imgFromApp: data.userData[0].imageurl });
                 this.setState({ userBio: data.userData[0].userbio });
+                this.setState({ userId: data.userData[0].id });
+                this.setState({ user: data.userData[0] });
 
                 this.setState({
                     fullname:
@@ -100,14 +104,15 @@ export class App extends Component<any, any> {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({userBio: this.state.userBio}),
+            body: JSON.stringify({ userBio: this.state.userBio }),
         })
             .then((res) => {
                 return res.json();
             })
             .then((data) => {
-                console.log("Bio updated", data);
+                // console.log("Bio updated", data);
                 // this.setState({ userBio: event.target.value });
+                console.log("User data (app): ", this.state.user);
             })
             .catch((err) => {
                 console.log("handleSubmitBio error: ", err);
@@ -178,6 +183,10 @@ export class App extends Component<any, any> {
                                         }
                                     />
                                 }
+                            ></Route>
+                            <Route
+                                path="/user/:id"
+                                element={<OtherProfile userId={this.state.userId} />}
                             ></Route>
                         </Routes>
                     </BrowserRouter>

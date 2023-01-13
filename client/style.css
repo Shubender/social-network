@@ -21,6 +21,12 @@ img {
     justify-content: space-between;
 }
 
+.other-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .new-users img {
     width: 70px;
     height: 70px;
