@@ -86,7 +86,7 @@ app.post("/searchUsers", (req, res) => {
     const searchUsers = req.body.search;
     // console.log("searchUsers: ", searchUsers);
 
-    if (searchUsers !== '') {
+    if (searchUsers !== "") {
         getUsersBySearch(searchUsers)
             .then((data) => {
                 // console.log("getUsersBySearch: ", data.rows);
@@ -96,6 +96,8 @@ app.post("/searchUsers", (req, res) => {
                 console.log("getUsersBySearch error: ", err);
                 res.json({ success: false });
             });
+    } else {
+        res.json({ success: false, foundUsers: '' });
     }
 });
 
@@ -254,7 +256,6 @@ app.post("/updatebio", (req, res) => {
             res.json({ success: false });
         });
 });
-
 
 // emailRes();
 

@@ -17,8 +17,7 @@ export default function FindPeople() {
             });
     }, []);
 
-
-    const [searchUsers, setSearchUsers] = useState('');
+    const [searchUsers, setSearchUsers] = useState("");
     const [foundUsers, setFoundUsers] = useState([]);
 
     useEffect(() => {
@@ -41,6 +40,8 @@ export default function FindPeople() {
             });
     }, [searchUsers]);
 
+    console.log("foundUsers: ", foundUsers);
+
     return (
         <div>
             <h2>Find People</h2>
@@ -61,17 +62,20 @@ export default function FindPeople() {
                 onChange={(event) => setSearchUsers(event.target.value)}
                 value={searchUsers}
             />
-            <br /><br />
-            <div className="found-users">
-                {foundUsers.map((user) => (
-                    <div key={user.id}>
-                        <img src={user.imageurl} alt={user.firstname} />
-                        <p>
-                            {user.firstname} {user.lastname}
-                        </p>
-                    </div>
-                ))}
-            </div>
+            <br />
+            <br />
+            {foundUsers.length !== 0 && (
+                <div className="found-users">
+                    {foundUsers.map((user) => (
+                        <div key={user.id}>
+                            <img src={user.imageurl} alt={user.firstname} />
+                            <p>
+                                {user.firstname} {user.lastname}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
