@@ -19,6 +19,10 @@ const {
     addBio,
     getNewUsers,
     getUsersBySearch,
+    findFriendship,
+    sendFriendship,
+    deleteFriendship,
+    acceptFriendship,
 } = require("./db.js");
 
 // const { emailRes } = require("./ses");
@@ -80,6 +84,53 @@ app.get("/api/user/:id", (req, res) => {
         .catch((err) => {
             console.log("Get other user error: ", err);
             res.json({ success: false });
+        });
+});
+
+app.get("/api/friendship/:id", (req, res) => {
+    // console.log("Other user ID: ", req.params.id);
+    findFriendship(req.session.userId, req.params.id)
+        .then((data) => {
+            // console.log("userData: ", data.rows);
+            res.json({
+                success: true,
+                friendshipStatus: data.rows,
+                userId: req.session.userId,
+            });
+        })
+        .catch((err) => {
+            console.log("friendship get error: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/friendship/:id", (req, res) => {
+    sendFriendship(req.session.userId, req.params.id)
+        .then((data) => {
+            res.json(data.rows);
+        })
+        .catch((err) => {
+            console.log("friendship post error: ", err);
+        });
+});
+
+app.post("/friendship/cancel/:id", (req, res) => {
+    deleteFriendship(req.session.userId, req.params.id)
+        .then((data) => {
+            res.json(data.rows);
+        })
+        .catch((err) => {
+            console.log("friendship cancel post error: ", err);
+        });
+});
+
+app.post("/friendship/accept/:id", (req, res) => {
+    acceptFriendship(req.session.userId, req.params.id)
+        .then((data) => {
+            res.json(data.rows);
+        })
+        .catch((err) => {
+            console.log("friendship accept post error: ", err);
         });
 });
 

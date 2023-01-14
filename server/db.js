@@ -90,11 +90,29 @@ module.exports.findFriendship = (user1, user2) => {
     return db.query(query, [user1, user2]);
 };
 
-module.exports.acceptFriendship = (sender, recipient, status) => {
+module.exports.sendFriendship = (sender, recipient) => {
     const query = `
-        INSERT INTO friendships (sender_id, recipient_id, accepted)
-        VALUES ($1, $2, $3)
+        INSERT INTO friendships (sender_id, recipient_id)
+        VALUES ($1, $2)
         RETURNING *;
         `;
-    return db.query(query, [sender, recipient, status]);
+    return db.query(query, [sender, recipient]);
+};
+
+module.exports.deleteFriendship = (user1, user2) => {
+    const query = `
+        DELETE FROM friendships 
+        WHERE (sender_id = $1 AND recipient_id = $2)
+        OR (sender_id = $2 AND recipient_id = $1)
+        `;
+    return db.query(query, [user1, user2]);
+};
+
+module.exports.acceptFriendship = (user1, user2) => {
+    const query = `
+        UPDATE friendships SET accepted = true
+        WHERE (sender_id = $1 AND recipient_id = $2)
+        OR (sender_id = $2 AND recipient_id = $1)
+        `;
+    return db.query(query, [user1, user2]);
 };
