@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import ProfilePic from "../components/ProfilePic";
+import FriendButton from "../components/FriendButton";
 
 export default function OtherProfile(props) {
     const [user, setUser] = useState<any>({});
@@ -41,6 +42,8 @@ export default function OtherProfile(props) {
                 imgFromApp={user?.imageurl}
                 // changeName={this.changeName}
             />
+            <FriendButton />
+
             <h2>
                 {user?.firstname} {user?.lastname}
             </h2>
