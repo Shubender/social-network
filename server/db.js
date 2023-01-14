@@ -80,3 +80,21 @@ module.exports.getUsersBySearch = (searchUsers) => {
         [searchUsers + "%"]
     );
 };
+
+module.exports.findFriendship = (user1, user2) => {
+    const query = `
+        SELECT * FROM friendships
+        WHERE (sender_id = $1 AND recipient_id = $2)
+        OR (sender_id = $2 AND recipient_id = $1)
+    `;
+    return db.query(query, [user1, user2]);
+};
+
+module.exports.acceptFriendship = (sender, recipient, status) => {
+    const query = `
+        INSERT INTO friendships (sender_id, recipient_id, accepted)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+        `;
+    return db.query(query, [sender, recipient, status]);
+};
