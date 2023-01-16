@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function BioEditor(props) {
     const [showEditField, setShowEditField] = useState(false);
@@ -26,7 +28,6 @@ export default function BioEditor(props) {
                     </button>
                 </div>
             )}
-
             {!props.userBio && !showEditField && (
                 <div>
                     <h2>Add your Bio:</h2>
@@ -35,7 +36,6 @@ export default function BioEditor(props) {
                     </button>
                 </div>
             )}
-
             {showEditField && (
                 <div>
                     <div>
@@ -47,11 +47,12 @@ export default function BioEditor(props) {
                             value={props.userBio}
                         ></textarea>
                     </div>
-                    <button type="submit" className="btn" onClick={onSubmit}>
+                    <Button variant="primary" type="submit" onClick={onSubmit}>
                         Save Bio
-                    </button>
+                    </Button>
                 </div>
             )}
+            <Button variant="primary">Test Button</Button>
         </div>
     );
 }

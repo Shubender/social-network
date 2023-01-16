@@ -8,6 +8,7 @@ import BioEditor from "../components/BioEditor";
 import FindPeople from "../components/FindPeople";
 import OtherProfile from "../components/OtherProfile";
 
+
 export class App extends Component<any, any> {
     constructor(props) {
         super(props);
@@ -136,7 +137,9 @@ export class App extends Component<any, any> {
             <div>
                 <div className="small-pic">
                     <Logo />
-                    <h2 className="find-people" onClick={this.assignToUsers}>Find People</h2>
+                    <h2 className="find-people" onClick={this.assignToUsers}>
+                        Find People
+                    </h2>
                     <ProfilePic
                         togglePopup={this.togglePopup}
                         username={this.state.fullname}
