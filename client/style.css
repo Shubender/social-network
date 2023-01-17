@@ -11,7 +11,8 @@ img {
     cursor: pointer;
 }
 
-.find-people {
+.find-people,
+.friends {
     cursor: pointer;
 }
 

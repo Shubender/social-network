@@ -7,6 +7,7 @@ import Profile from "../components/Profile";
 import BioEditor from "../components/BioEditor";
 import FindPeople from "../components/FindPeople";
 import OtherProfile from "../components/OtherProfile";
+import FindFriends from "../components/Friends";
 
 
 export class App extends Component<any, any> {
@@ -131,6 +132,12 @@ export class App extends Component<any, any> {
         return;
     };
 
+    assignToFriends = (event) => {
+        event.preventDefault();
+        location.assign("/friends");
+        return;
+    };
+
     render() {
         // console.log("file: ", this.state.file);
         return (
@@ -139,6 +146,9 @@ export class App extends Component<any, any> {
                     <Logo />
                     <h2 className="find-people" onClick={this.assignToUsers}>
                         Find People
+                    </h2>
+                    <h2 className="friends" onClick={this.assignToFriends}>
+                        Friends
                     </h2>
                     <ProfilePic
                         togglePopup={this.togglePopup}
@@ -162,6 +172,10 @@ export class App extends Component<any, any> {
                             <Route
                                 path="/users"
                                 element={<FindPeople />}
+                            ></Route>
+                            <Route
+                                path="/friends"
+                                element={<FindFriends />}
                             ></Route>
                             <Route
                                 path="/"
