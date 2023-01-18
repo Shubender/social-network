@@ -23,6 +23,7 @@ const {
     sendFriendship,
     deleteFriendship,
     acceptFriendship,
+    findAllFriendships,
 } = require("./db.js");
 
 // const { emailRes } = require("./ses");
@@ -142,6 +143,22 @@ app.get("/newUsers", (req, res) => {
         })
         .catch((err) => {
             console.log("Get newUsers error: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/api/friends", (req, res) => {
+    findAllFriendships(req.session.userId)
+        .then((data) => {
+            // console.log("friends: ", data.rows);
+            res.json({
+                success: true,
+                friends: data.rows,
+                userId: req.session.userId,
+            });
+        })
+        .catch((err) => {
+            console.log("Get friends error: ", err);
             res.json({ success: false });
         });
 });
