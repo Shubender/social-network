@@ -9,6 +9,11 @@ import FindPeople from "../components/FindPeople";
 import OtherProfile from "../components/OtherProfile";
 import FindFriends from "../components/Friends";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 export class App extends Component<any, any> {
     constructor(props) {
@@ -141,81 +146,135 @@ export class App extends Component<any, any> {
     render() {
         // console.log("file: ", this.state.file);
         return (
-            <div>
-                <div className="small-pic">
-                    <Logo />
-                    <h2 className="find-people" onClick={this.assignToUsers}>
-                        Find People
-                    </h2>
-                    <h2 className="friends" onClick={this.assignToFriends}>
-                        Friends
-                    </h2>
-                    <ProfilePic
-                        togglePopup={this.togglePopup}
-                        username={this.state.fullname}
-                        imgFromApp={this.state.imgFromApp}
-                        // changeName={this.changeName}
-                    />
-                </div>
-                <div className="uploader">
-                    {this.state.isPopupOpen && (
-                        <Uploader
+            <div className="App">
+                <header>
+                    <Navbar bg="dark" variant="dark" expand="lg">
+                        <Container>
+                            <Navbar.Brand href="/">FalseWorld</Navbar.Brand>
+                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                            <Navbar.Collapse id="basic-navbar-nav">
+                                <Nav className="me-auto">
+                                    <Nav.Link href="/users">
+                                        Find People
+                                    </Nav.Link>
+                                    <Nav.Link href="/chat">Chat</Nav.Link>
+                                    <Nav.Link href="/friends">Friends</Nav.Link>
+                                    <NavDropdown
+                                        title="Menu"
+                                        id="basic-nav-dropdown"
+                                    >
+                                        <NavDropdown.Item href="#action/3.1">
+                                            Action
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.2">
+                                            Another action
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.3">
+                                            Something
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item href="#action/3.4">
+                                            Separated link
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+                            </Navbar.Collapse>
+                            <ProfilePic
+                                togglePopup={this.togglePopup}
+                                username={this.state.fullname}
+                                imgFromApp={this.state.imgFromApp}
+                                picClass="nav-img"
+                                // changeName={this.changeName}
+                            />
+                        </Container>
+                    </Navbar>
+                </header>
+                <main>
+                    {/* <div className="small-pic">
+                        <Logo />
+                        <h2
+                            className="find-people"
+                            onClick={this.assignToUsers}
+                        >
+                            Find People
+                        </h2>
+                        <h2 className="friends" onClick={this.assignToFriends}>
+                            Friends
+                        </h2>
+                        <ProfilePic
+                            togglePopup={this.togglePopup}
                             username={this.state.fullname}
-                            handleFileChange={this.handleFileChange}
-                            handleSubmitUpload={this.handleSubmitUpload}
+                            imgFromApp={this.state.imgFromApp}
+                            // changeName={this.changeName}
                         />
-                    )}
-                </div>
-                <div>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route
-                                path="/users"
-                                element={<FindPeople />}
-                            ></Route>
-                            <Route
-                                path="/friends"
-                                element={<FindFriends />}
-                            ></Route>
-                            <Route
-                                path="/"
-                                element={
-                                    <Profile
-                                        firstname={this.state.firstname}
-                                        lastname={this.state.lastname}
-                                        profilePicProps={
-                                            <ProfilePic
-                                                togglePopup={null}
-                                                username={this.state.fullname}
-                                                imgFromApp={
-                                                    this.state.imgFromApp
-                                                }
-                                                // changeName={this.changeName}
-                                            />
-                                        }
-                                        bioEditorProps={
-                                            <BioEditor
-                                                userBio={this.state.userBio}
-                                                handleBioChange={
-                                                    this.handleBioChange
-                                                }
-                                                handleSubmitBio={
-                                                    this.handleSubmitBio
-                                                }
-                                            />
-                                        }
-                                    />
-                                }
-                            ></Route>
-                            <Route
-                                path="/user/:id"
-                                element={
-                                    <OtherProfile userId={this.state.userId} />
-                                }
-                            ></Route>
-                        </Routes>
-                    </BrowserRouter>
-                </div>
+                    </div> */}
+                    <div className="uploader">
+                        {this.state.isPopupOpen && (
+                            <Uploader
+                                username={this.state.fullname}
+                                handleFileChange={this.handleFileChange}
+                                handleSubmitUpload={this.handleSubmitUpload}
+                            />
+                        )}
+                    </div>
+                    <div>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route
+                                    path="/users"
+                                    element={<FindPeople />}
+                                ></Route>
+                                <Route
+                                    path="/friends"
+                                    element={<FindFriends />}
+                                ></Route>
+                                <Route
+                                    path="/"
+                                    element={
+                                        <Profile
+                                            firstname={this.state.firstname}
+                                            lastname={this.state.lastname}
+                                            profilePicProps={
+                                                <ProfilePic
+                                                    togglePopup={
+                                                        this.togglePopup
+                                                    }
+                                                    username={
+                                                        this.state.fullname
+                                                    }
+                                                    imgFromApp={
+                                                        this.state.imgFromApp
+                                                    }
+                                                    picClass="big-img"
+                                                    // changeName={this.changeName}
+                                                />
+                                            }
+                                            bioEditorProps={
+                                                <BioEditor
+                                                    userBio={this.state.userBio}
+                                                    handleBioChange={
+                                                        this.handleBioChange
+                                                    }
+                                                    handleSubmitBio={
+                                                        this.handleSubmitBio
+                                                    }
+                                                />
+                                            }
+                                        />
+                                    }
+                                ></Route>
+                                <Route
+                                    path="/user/:id"
+                                    element={
+                                        <OtherProfile
+                                            userId={this.state.userId}
+                                        />
+                                    }
+                                ></Route>
+                            </Routes>
+                        </BrowserRouter>
+                    </div>
+                </main>
             </div>
         );
     }

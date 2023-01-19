@@ -22,18 +22,26 @@ export default function BioEditor(props) {
             {props.userBio && !showEditField && (
                 <div>
                     <h2>Your Bio:</h2>
-                    <h1>{props.userBio}</h1>
-                    <button className="btn" onClick={toggleEditShow}>
+                    <h3>{props.userBio}</h3>
+                    <Button
+                        variant="outline-primary"
+                        type="submit"
+                        onClick={toggleEditShow}
+                    >
                         Edit Bio
-                    </button>
+                    </Button>
                 </div>
             )}
             {!props.userBio && !showEditField && (
                 <div>
                     <h2>Add your Bio:</h2>
-                    <button className="btn" onClick={toggleEditShow}>
+                    <Button
+                        variant="outline-primary"
+                        type="submit"
+                        onClick={toggleEditShow}
+                    >
                         Add Bio
-                    </button>
+                    </Button>
                 </div>
             )}
             {showEditField && (
@@ -47,12 +55,11 @@ export default function BioEditor(props) {
                             value={props.userBio}
                         ></textarea>
                     </div>
-                    <Button variant="primary" type="submit" onClick={onSubmit}>
+                    <Button variant="outline-primary" type="submit" onClick={onSubmit}>
                         Save Bio
                     </Button>
                 </div>
             )}
-            <Button variant="primary">Test Button</Button>
         </div>
     );
 }

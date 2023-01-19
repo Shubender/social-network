@@ -1,10 +1,20 @@
 // need add imgFromApp, changeName to function??
-export default function ProfilePic({ togglePopup, username, imgFromApp }) {
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+
+export default function ProfilePic({ togglePopup, username, imgFromApp, picClass }) {
     imgFromApp = imgFromApp || "/no_photo.png";
 
     return (
         <>
-            <img src={imgFromApp} alt={username} onClick={togglePopup} />
+            <Image
+                src={imgFromApp}
+                alt={username}
+                onClick={togglePopup}
+                fluid
+                rounded
+                className={picClass}
+            />
             {/* <button onClick={() => changeName("Spiced")}>Change Name</button> */}
         </>
     );

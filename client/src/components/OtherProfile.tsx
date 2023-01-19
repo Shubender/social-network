@@ -40,6 +40,7 @@ export default function OtherProfile(props) {
                 togglePopup={null}
                 username={user?.firstname}
                 imgFromApp={user?.imageurl}
+                picClass="big-img"
                 // changeName={this.changeName}
             />
             <FriendButton />

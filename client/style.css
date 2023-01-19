@@ -1,4 +1,32 @@
-body {
+.nav-img {
+    width: 70px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.big-img {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    object-fit: cover;
+}
+
+.users-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+}
+
+.user-card {
+    width: 202px;
+}
+
+
+
+/* OLD VERSION */
+
+/* body {
     background-color: ghostwhite;
 }
 
@@ -48,9 +76,11 @@ img {
     width: 70px;
     height: 70px;
     object-fit: cover;
-}
+} */
 
 /* not work */
+/* 
 .logo {
     cursor: default;
-}
+} */
+
