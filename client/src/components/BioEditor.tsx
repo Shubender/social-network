@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
 
 export default function BioEditor(props) {
     const [showEditField, setShowEditField] = useState(false);
@@ -22,7 +24,7 @@ export default function BioEditor(props) {
             {props.userBio && !showEditField && (
                 <div>
                     <h2>Your Bio:</h2>
-                    <h3>{props.userBio}</h3>
+                    <h4>{props.userBio}</h4>
                     <Button
                         variant="outline-primary"
                         type="submit"
@@ -47,15 +49,32 @@ export default function BioEditor(props) {
             {showEditField && (
                 <div>
                     <div>
-                        <label htmlFor="bioFiled">Tell us about you:</label>
+                        {/* <label htmlFor="bioFiled">Tell us about you:</label> */}
                         <br />
-                        <textarea
+                        <FloatingLabel
+                            controlId="floatingTextarea2"
+                            label="Tell us about you:"
+                        >
+                            <Form.Control
+                                as="textarea"
+                                placeholder="Leave your bio here"
+                                style={{ height: "100px" }}
+                                onChange={props.handleBioChange}
+                                value={props.userBio}
+                            />
+                        </FloatingLabel>
+                        {/* <textarea
                             name="bioFiled"
                             onChange={props.handleBioChange}
                             value={props.userBio}
-                        ></textarea>
+                        ></textarea> */}
                     </div>
-                    <Button variant="outline-primary" type="submit" onClick={onSubmit}>
+                    <br />
+                    <Button
+                        variant="outline-primary"
+                        type="submit"
+                        onClick={onSubmit}
+                    >
                         Save Bio
                     </Button>
                 </div>

@@ -77,7 +77,6 @@ export default function FindPeople() {
             </div>
 
             <div>
-                {/* <h3>Find user by name:</h3> */}
                 <Form>
                     <Form.Group
                         className="m-3 w-25"
@@ -94,11 +93,6 @@ export default function FindPeople() {
                         />
                     </Form.Group>
                 </Form>
-                {/* <input
-                    type="text"
-                    onChange={(event) => setSearchUsers(event.target.value)}
-                    value={searchUsers}
-                /> */}
                 <br />
                 <br />
                 {foundUsers.length !== 0 && (
