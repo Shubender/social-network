@@ -53,7 +53,7 @@ export default function FindPeople() {
                 <h3>Currently joined:</h3>
                 <div className="users-list">
                     {newUsers.map((user) => (
-                        <Card key={user.id} style={{ width: "15rem" }}>
+                        <Card key={user.id} className="user-card">
                             <Card.Img
                                 variant="top"
                                 src={user.imageurl}

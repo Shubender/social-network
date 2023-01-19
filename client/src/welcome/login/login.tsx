@@ -1,6 +1,9 @@
 import { Component, FormEvent } from "react";
 import { redirect, Link } from "react-router-dom";
 import ValidationErr from "../../components/validation-err";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
 
 interface LoginState {
     email?: string;
@@ -59,27 +62,70 @@ export default class Login extends Component<any, any> {
     render() {
         console.log("state: ", this.state);
         return (
-            <div>
-                <p>Please Login:</p>
+            <Container className="text-center">
+                <br />
+                <span>Please Login</span>
                 {this.state.error && <ValidationErr />}
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <span>Email</span>
-                        <input name="email" onChange={this.handleInputChange} />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <input
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group className="m-3 w-25" controlId="formBasicEmail">
+                        <Form.Label>Email address:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter email"
+                            name="email"
+                            onChange={this.handleInputChange}
+                        />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else
+                            (false)
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group
+                        className="m-3 w-25"
+                        controlId="formBasicPassword"
+                    >
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
                             name="password"
                             onChange={this.handleInputChange}
                         />
+                    </Form.Group>
+                    <div className="d-grid gap-1">
+                        <Button
+                            variant="outline-primary"
+                            type="submit"
+                            className="m-3 w-25"
+                            size="sm"
+                        >
+                            Login
+                        </Button>
+                        <Link to="/">
+                            <Button
+                                variant="outline-info"
+                                type="button"
+                                className="m-3 w-25"
+                                size="sm"
+                            >
+                                Click here to Register!
+                            </Button>
+                        </Link>
+                        <Link to="/reset/start">
+                            <Button
+                                variant="outline-info"
+                                type="button"
+                                className="m-3 w-25"
+                                size="sm"
+                            >
+                                Click here to Reset password!
+                            </Button>
+                        </Link>
                     </div>
-                    <button>Login</button>
-                </form>
-                <Link to="/">Click here to Register!</Link>
+                </Form>
                 <br />
-                <Link to="/reset/start">Click here to Reset password!</Link>
-            </div>
+            </Container>
         );
     }
 }

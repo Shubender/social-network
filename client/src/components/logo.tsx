@@ -7,7 +7,7 @@ export default function Logo() {
 
     return (
         <img
-            src="/olympics.jpg"
+            src="/logo.png"
             alt="Logo"
             className="logo"
             onClick={redirect}
