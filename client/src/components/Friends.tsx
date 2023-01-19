@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 export default function FindFriends() {
     const [userFriends, setUserFriends] = useState([]);
-    let userId;
+    const [userId, setUserIs] = useState([]);
+
     useEffect(() => {
         console.log("useEffect (setUserFriends) start");
 
@@ -15,8 +16,7 @@ export default function FindFriends() {
             .then((res) => res.json())
             .then((data) => {
                 console.log("fetch friendship: ", data);
-                userId = data.userId;
-                console.log("userId: ", userId);
+                setUserIs(data.userId);
                 setUserFriends(data.friends);
             });
     }, []);
