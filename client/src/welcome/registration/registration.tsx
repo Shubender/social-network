@@ -63,7 +63,9 @@ export default class Registration extends Component<any, any> {
         console.log("state: ", this.state);
         return (
             <div>
+                <br />
                 <span>Please Register:</span>
+                <br />
                 {this.state.error && <ValidationErr />}
                 <div>
                     <Container>
@@ -117,7 +119,7 @@ export default class Registration extends Component<any, any> {
                                                         controlId="formBasicEmail"
                                                     >
                                                         <Form.Label className="text-center">
-                                                            Email and password
+                                                            Email and Password
                                                         </Form.Label>
                                                         <Form.Control
                                                             type="email"

@@ -1,9 +1,7 @@
 import { Component, FormEvent } from "react";
 import { redirect, Link } from "react-router-dom";
 import ValidationErr from "../../components/validation-err";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
+import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
 interface LoginState {
     email?: string;
@@ -62,70 +60,88 @@ export default class Login extends Component<any, any> {
     render() {
         console.log("state: ", this.state);
         return (
-            <Container className="text-center">
+            <div className="text-center">
                 <br />
                 <span>Please Login</span>
-                {this.state.error && <ValidationErr />}
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group className="m-3 w-25" controlId="formBasicEmail">
-                        <Form.Label>Email address:</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter email"
-                            name="email"
-                            onChange={this.handleInputChange}
-                        />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else
-                            (false)
-                        </Form.Text>
-                    </Form.Group>
-
-                    <Form.Group
-                        className="m-3 w-25"
-                        controlId="formBasicPassword"
-                    >
-                        <Form.Label>Password:</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            onChange={this.handleInputChange}
-                        />
-                    </Form.Group>
-                    <div className="d-grid gap-1">
-                        <Button
-                            variant="outline-primary"
-                            type="submit"
-                            className="m-3 w-25"
-                            size="sm"
-                        >
-                            Login
-                        </Button>
-                        <Link to="/">
-                            <Button
-                                variant="outline-info"
-                                type="button"
-                                className="m-3 w-25"
-                                size="sm"
-                            >
-                                Click here to Register!
-                            </Button>
-                        </Link>
-                        <Link to="/reset/start">
-                            <Button
-                                variant="outline-info"
-                                type="button"
-                                className="m-3 w-25"
-                                size="sm"
-                            >
-                                Click here to Reset password!
-                            </Button>
-                        </Link>
-                    </div>
-                </Form>
                 <br />
-            </Container>
+                <br />
+                {this.state.error && <ValidationErr />}
+                <Container>
+                    <Row className="vh-80 d-flex justify-content-center align-items-center">
+                        <Col md={8} lg={6} xs={12}>
+                            <Card className="shadow px-4">
+                                <Card.Body>
+                                    <div className="mb-3 mt-md-4">
+                                        <div className="mb-3">
+                                            <Form onSubmit={this.handleSubmit}>
+                                                <Form.Group
+                                                    className="mb-3"
+                                                    controlId="formBasicEmail"
+                                                >
+                                                    <Form.Label className="text-center">
+                                                        Email and Password
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        type="email"
+                                                        placeholder="Email"
+                                                        name="email"
+                                                        onChange={
+                                                            this
+                                                                .handleInputChange
+                                                        }
+                                                    />
+                                                </Form.Group>
+
+                                                <Form.Group
+                                                    className="mb-3"
+                                                    controlId="formBasicPassword"
+                                                >
+                                                    {/* <Form.Label>
+                                                            Password
+                                                        </Form.Label> */}
+                                                    <Form.Control
+                                                        type="password"
+                                                        placeholder="Password"
+                                                        name="password"
+                                                        onChange={
+                                                            this
+                                                                .handleInputChange
+                                                        }
+                                                    />
+                                                </Form.Group>
+
+                                                <Form.Group
+                                                    className="mb-3"
+                                                    controlId="formBasicCheckbox"
+                                                ></Form.Group>
+                                                <div className="d-grid">
+                                                    <Button
+                                                        variant="primary"
+                                                        type="submit"
+                                                    >
+                                                        Log In
+                                                    </Button>
+                                                </div>
+                                            </Form>
+                                            <div className="mt-3">
+                                                <p className="mb-0  text-center">
+                                                    Do not have an account?{" "}
+                                                    <a
+                                                        href="http://localhost:3000/"
+                                                        className="text-primary fw-bold"
+                                                    >
+                                                        Register
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         );
     }
 }
