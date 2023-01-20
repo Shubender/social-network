@@ -73,17 +73,42 @@ export default class Registration extends Component<any, any> {
                                     <Card.Body>
                                         <div className="mb-3 mt-md-4">
                                             <div className="mb-3">
-                                                <Form>
+                                                <Form
+                                                    onSubmit={this.handleSubmit}
+                                                >
                                                     <Form.Group
                                                         className="mb-3"
                                                         controlId="Name"
                                                     >
                                                         <Form.Label className="text-center">
-                                                            Name
+                                                            Enter your name
                                                         </Form.Label>
                                                         <Form.Control
                                                             type="text"
-                                                            placeholder="Enter Name"
+                                                            placeholder="Name"
+                                                            name="firstname"
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
+                                                        />
+                                                    </Form.Group>
+
+                                                    <Form.Group
+                                                        className="mb-3"
+                                                        controlId="Lastname"
+                                                    >
+                                                        {/* <Form.Label className="text-center">
+                                                            Lastname
+                                                        </Form.Label> */}
+                                                        <Form.Control
+                                                            type="text"
+                                                            placeholder="Last name"
+                                                            name="lastname"
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
                                                         />
                                                     </Form.Group>
 
@@ -92,11 +117,16 @@ export default class Registration extends Component<any, any> {
                                                         controlId="formBasicEmail"
                                                     >
                                                         <Form.Label className="text-center">
-                                                            Email address
+                                                            Email and password
                                                         </Form.Label>
                                                         <Form.Control
                                                             type="email"
-                                                            placeholder="Enter email"
+                                                            placeholder="Email"
+                                                            name="email"
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
                                                         />
                                                     </Form.Group>
 
@@ -104,12 +134,17 @@ export default class Registration extends Component<any, any> {
                                                         className="mb-3"
                                                         controlId="formBasicPassword"
                                                     >
-                                                        <Form.Label>
+                                                        {/* <Form.Label>
                                                             Password
-                                                        </Form.Label>
+                                                        </Form.Label> */}
                                                         <Form.Control
                                                             type="password"
                                                             placeholder="Password"
+                                                            name="password"
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
                                                         />
                                                     </Form.Group>
                                                     {/* <Form.Group
@@ -139,10 +174,9 @@ export default class Registration extends Component<any, any> {
                                                 </Form>
                                                 <div className="mt-3">
                                                     <p className="mb-0  text-center">
-                                                        Already have an
-                                                        account??{" "}
+                                                        Already have an account?{" "}
                                                         <a
-                                                            href="{''}"
+                                                            href="http://localhost:3000/login"
                                                             className="text-primary fw-bold"
                                                         >
                                                             Sign In
@@ -157,36 +191,6 @@ export default class Registration extends Component<any, any> {
                         </Row>
                     </Container>
                 </div>
-                <br />
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <span>Firstname</span>
-                        <input
-                            name="firstname"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <span>Lastname</span>
-                        <input
-                            name="lastname"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <span>Email</span>
-                        <input name="email" onChange={this.handleInputChange} />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <input
-                            name="password"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <button>Register</button>
-                </form>
-                <Link to="/login">Click here to Log in!</Link>
             </div>
         );
     }
