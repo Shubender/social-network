@@ -1,8 +1,16 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./app/app";
 import { Welcome } from "./welcome/welcome";
-import { store } from "./redux/store";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore, applyMiddleware } from "redux";
+import * as immutableState from "redux-immutable-state-invariant";
 import { Provider } from "react-redux";
+import reducer from "./redux/reducer";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(immutableState.default()))
+);
 
 const root = createRoot(document.querySelector("main"));
 
