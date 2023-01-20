@@ -22,7 +22,7 @@ export default function friendsReducer(friends = null, action) {
     return friends;
 }
 
-export function friendsAndWannabees(data) {
+export function friendships(data) {
     return { type: "friendships/get", payload: data };
 }
 
