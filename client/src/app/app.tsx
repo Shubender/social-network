@@ -190,24 +190,6 @@ export class App extends Component<any, any> {
                     </Navbar>
                 </header>
                 <main>
-                    {/* <div className="small-pic">
-                        <Logo />
-                        <h2
-                            className="find-people"
-                            onClick={this.assignToUsers}
-                        >
-                            Find People
-                        </h2>
-                        <h2 className="friends" onClick={this.assignToFriends}>
-                            Friends
-                        </h2>
-                        <ProfilePic
-                            togglePopup={this.togglePopup}
-                            username={this.state.fullname}
-                            imgFromApp={this.state.imgFromApp}
-                            // changeName={this.changeName}
-                        />
-                    </div> */}
                     <div className="uploader">
                         {this.state.isPopupOpen && (
                             <Uploader

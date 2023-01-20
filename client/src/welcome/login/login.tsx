@@ -124,7 +124,7 @@ export default class Login extends Component<any, any> {
                                                 </div>
                                             </Form>
                                             <div className="mt-3">
-                                                <p className="mb-0  text-center">
+                                                <span className="mb-0  text-center">
                                                     Do not have an account?{" "}
                                                     <a
                                                         href="http://localhost:3000/"
@@ -132,7 +132,7 @@ export default class Login extends Component<any, any> {
                                                     >
                                                         Register
                                                     </a>
-                                                </p>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
