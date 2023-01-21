@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 
 export default function FriendButton() {
     const [btnState, setBtnState] = useState("Default");
@@ -15,7 +16,6 @@ export default function FriendButton() {
                 console.log("sender ID: ", data.userId);
                 console.log("recipient ID: ", friendId);
 
-
                 if (data.friendshipStatus.length === 0) {
                     setBtnState("Request friendship");
                 } else if (
@@ -23,14 +23,12 @@ export default function FriendButton() {
                     data.userId === data.friendshipStatus[0].sender_id
                 ) {
                     setBtnState("Cancel my request");
-                }
-                else if (
+                } else if (
                     data.friendshipStatus[0].accepted === false &&
                     data.userId !== data.friendshipStatus[0].sender_id
                 ) {
                     setBtnState("Accept request");
-                } 
-                else if (data.friendshipStatus[0].accepted == true) {
+                } else if (data.friendshipStatus[0].accepted == true) {
                     setBtnState("Unfriend");
                 }
             });
@@ -72,5 +70,14 @@ export default function FriendButton() {
         }
     }
 
-    return <button onClick={onClick}>{btnState}</button>;
+    return (
+        <Button
+            variant="outline-primary"
+            type="submit"
+            className="m-3"
+            onClick={onClick}
+        >
+            {btnState}
+        </Button>
+    );
 }

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import ProfilePic from "../components/ProfilePic";
 import FriendButton from "../components/FriendButton";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function OtherProfile(props) {
     const [user, setUser] = useState<any>({});
@@ -36,19 +39,28 @@ export default function OtherProfile(props) {
 
     return (
         <div className="other-profile">
-            <ProfilePic
-                togglePopup={null}
-                username={user?.firstname}
-                imgFromApp={user?.imageurl}
-                picClass="big-img"
-                // changeName={this.changeName}
-            />
-            <FriendButton />
-
-            <h2>
-                {user?.firstname} {user?.lastname}
-            </h2>
-            <span>{user.userbio || "No bio yet"}</span>
+            <Container>
+                <Row className="px-4 my-5">
+                    <Col sm={4}>
+                        <ProfilePic
+                            togglePopup={null}
+                            username={user?.firstname}
+                            imgFromApp={user?.imageurl}
+                            picClass="big-img"
+                            // changeName={this.changeName}
+                        />
+                    </Col>
+                    <Col sm={8}>
+                        <h2>
+                            {user?.firstname} {user?.lastname}
+                        </h2>
+                        <p className="bio-editor mt-4">
+                            <span>{user.userbio || "No bio yet"}</span>
+                        </p>
+                        <FriendButton />
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }
