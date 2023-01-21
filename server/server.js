@@ -150,7 +150,7 @@ app.get("/newUsers", (req, res) => {
 app.get("/api/friends", (req, res) => {
     findAllFriendships(req.session.userId)
         .then((data) => {
-            // console.log("friends: ", data.rows);
+            console.log("friends: ", data.rows);
             res.json({
                 success: true,
                 friends: data.rows,

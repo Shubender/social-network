@@ -1,6 +1,6 @@
-export default function friendsReducer(friends = null, action) {
+export default function friendsReducer(friends = [], action) {
     if (action.type == "friendships/get") {
-        console.log("friends: ", friends);
+        console.log("friends from slice: ", action.payload);
         return (friends = action.payload);
     }
 
@@ -22,7 +22,7 @@ export default function friendsReducer(friends = null, action) {
     return friends;
 }
 
-export function friendships(data) {
+export function getFriendships(data) {
     return { type: "friendships/get", payload: data };
 }
 

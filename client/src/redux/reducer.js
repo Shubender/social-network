@@ -4,7 +4,7 @@ import friendsReducer from "./friends/slice";
 // import postsReducer from "./posts/slice";
 
 const rootReducer = combineReducers({
-    friendsReducer,
+    friends: friendsReducer,
     // chatMessagesReducer,
     // postsReducer,
 });
