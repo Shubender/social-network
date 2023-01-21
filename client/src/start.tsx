@@ -5,10 +5,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { createStore, applyMiddleware } from "redux";
 import * as immutableState from "redux-immutable-state-invariant";
 import { Provider } from "react-redux";
-import reducer from "./redux/reducer";
+import rootReducer from "./redux/reducer";
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(applyMiddleware(immutableState.default()))
 );
 
@@ -21,7 +21,7 @@ fetch("/user/id.json")
             root.render(
                 <Provider store={store}>
                     <App />
-                </Provider>,
+                </Provider>
             );
         } else {
             root.render(<Welcome />);
