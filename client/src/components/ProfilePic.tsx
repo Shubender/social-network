@@ -11,7 +11,6 @@ export default function ProfilePic({ togglePopup, username, imgFromApp, picClass
                 src={imgFromApp}
                 alt={username}
                 onClick={togglePopup}
-                fluid
                 rounded
                 className={picClass}
             />

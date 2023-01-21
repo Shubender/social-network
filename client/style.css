@@ -3,7 +3,8 @@
 } */
 
 .nav-img {
-    width: 70px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     object-fit: cover;
 }
@@ -25,8 +26,6 @@
 .user-card {
     width: 202px;
 }
-
-
 
 /* OLD VERSION */
 
@@ -87,4 +86,3 @@ img {
 .logo {
     cursor: default;
 } */
-
