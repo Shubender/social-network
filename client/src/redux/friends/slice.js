@@ -1,17 +1,18 @@
-export default function friendsReducer(friends = [], action) {
+export default function friendsReducer(friendships = {}, action) {
     if (action.type == "friendships/get") {
         console.log("friends from slice: ", action.payload);
-        return (friends = action.payload);
+        return (friendships = action.payload);
     }
 
     if (action.type == "friend/delete") {
-        return friends.filter((friend) => {
+        return friendships.filter((friend) => {
+            // TODO fix to .friend
             return friend.friendshipid != action.payload.friendshipId;
         });
     }
 
     if (action.type == "friend/accept") {
-        return friends.map((friend) => {
+        return friendships.map((friend) => {
             if (friend.friendshipid == action.payload.friendshipId) {
                 return { ...friend, accepted: true };
             }
@@ -19,7 +20,7 @@ export default function friendsReducer(friends = [], action) {
         });
     }
 
-    return friends;
+    return friendships;
 }
 
 export function getFriendships(data) {

@@ -14,6 +14,12 @@ export default function FindFriends() {
 
     const dispatch = useDispatch();
     const friendships = useSelector((store) => store.friends);
+    const userId = useSelector((store) => {
+        console.log("store: ", store.friends?.userId);
+        return store.friends?.userId;
+    });
+    console.log("userId: ", userId);
+
     console.log("friendships: ", friendships);
     const { friends } = friendships ?? { friends: [] };
     console.log("friends: ", friends);
@@ -24,29 +30,13 @@ export default function FindFriends() {
     // console.log("friends: ", accepted);
 
     useEffect(() => {
-        if (friendships.length === 0) {
-            fetch("/api/friends/")
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log("Data in friends: ", data);
-                    dispatch(getFriendships(data));
-                });
-        }
+        fetch("/api/friends/")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Data in friends: ", data);
+                dispatch(getFriendships(data));
+            });
     }, []);
-
-    // useEffect(() => {
-    //     console.log("useEffect (setUserFriends) start");
-
-    //     fetch(`/api/friends/`, {
-    //         method: "GET",
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             console.log("fetch friendship: ", data);
-    //             setUserIs(data.userId);
-    //             setUserFriends(data.friends);
-    //         });
-    // }, []);
 
     return (
         <div>
