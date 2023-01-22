@@ -13,9 +13,9 @@ export default function FriendButton(props) {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("fetch friendship: ", data.friendshipStatus[0]);
-                console.log("sender ID: ", data.userId);
-                console.log("recipient ID: ", friendId);
+                // console.log("fetch friendship: ", data.friendshipStatus[0]);
+                // console.log("sender ID: ", data.userId);
+                // console.log("recipient ID: ", friendId);
 
                 if (data.friendshipStatus.length === 0) {
                     setBtnState("Request friendship");

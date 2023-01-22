@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendships } from "../redux/friends/slice";
@@ -13,29 +13,29 @@ export default function FindFriends() {
     const dispatch = useDispatch();
 
     const friendships = useSelector((store) => store.friends);
-    console.log("friendships: ", friendships);
+    // console.log("friendships: ", friendships);
 
     const userId = useSelector((store) => {
         return store.friends?.userId;
     });
-    console.log("userId: ", userId);
+    // console.log("userId: ", userId);
 
     const { friends } = friendships ?? { friends: [] };
-    console.log("friends: ", friends);
+    // console.log("friends: ", friends);
 
     const wannabees = friends?.filter(
         (f) => !f.accepted && f.sender_id != userId && f.id != userId
     );
     const accepted = friends?.filter((f) => f.accepted && f.id != userId);
 
-    console.log("wannabees: ", wannabees);
-    console.log("friends: ", accepted);
+    // console.log("wannabees: ", wannabees);
+    // console.log("friends: ", accepted);
 
     useEffect(() => {
         fetch("/api/friends/")
             .then((res) => res.json())
             .then((data) => {
-                console.log("Data in friends: ", data);
+                // console.log("Data in friends: ", data);
                 dispatch(getFriendships(data));
             });
     }, []);

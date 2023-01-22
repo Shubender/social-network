@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 export default function OtherProfile(props) {
     const [user, setUser] = useState<any>({});
     const { id } = useParams();
-    console.log("otherProfile ID: ", id);
+    // console.log("otherProfile ID: ", id);
 
     const navigate = useNavigate();
 
