@@ -143,6 +143,20 @@ export class App extends Component<any, any> {
         return;
     };
 
+    handleSingOut = (event) => {
+        event.preventDefault();
+        console.log("test sign out");
+        fetch("/sing-out")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("sign out: ", data);
+                location.assign("/login");
+            })
+            .catch((err) => {
+                console.log("sign out error: ", err);
+            });
+    };
+
     render() {
         // console.log("file: ", this.state.file);
         return (
@@ -153,28 +167,31 @@ export class App extends Component<any, any> {
                             <Navbar.Brand href="/">FalseWorld</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="me-auto">
+                                <Nav className="navbar-nav ms-auto mb-2 mb-lg-0">
                                     <Nav.Link href="/users">
                                         Find People
                                     </Nav.Link>
-                                    <Nav.Link href="/chat">Chat</Nav.Link>
+                                    {/* <Nav.Link href="/chat">Chat</Nav.Link> */}
                                     <Nav.Link href="/friends">Friends</Nav.Link>
                                     <NavDropdown
                                         title="Menu"
                                         id="basic-nav-dropdown"
                                     >
-                                        <NavDropdown.Item href="#action/3.1">
+                                        {/* <NavDropdown.Item href="#action/3.1">
                                             Action
                                         </NavDropdown.Item>
                                         <NavDropdown.Item href="#action/3.2">
                                             Another action
-                                        </NavDropdown.Item>
+                                        </NavDropdown.Item> */}
                                         <NavDropdown.Item href="#action/3.3">
-                                            Something
+                                            Delete Account
                                         </NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item href="#action/3.4">
-                                            Separated link
+                                        <NavDropdown.Item
+                                            href=""
+                                            onClick={this.handleSingOut}
+                                        >
+                                            Sign Out
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>

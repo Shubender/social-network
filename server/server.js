@@ -163,6 +163,12 @@ app.get("/api/friends", (req, res) => {
         });
 });
 
+app.get("/sing-out", (req, res) => {
+    req.session.userId = false;
+    console.log("server sing-out: ", req.session.userId);
+    res.json({ success: true });
+});
+
 app.post("/searchUsers", (req, res) => {
     const searchUsers = req.body.search;
     // console.log("searchUsers: ", searchUsers);
