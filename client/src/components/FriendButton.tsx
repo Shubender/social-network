@@ -2,9 +2,10 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 
-export default function FriendButton() {
+export default function FriendButton(props) {
     const [btnState, setBtnState] = useState("Default");
-    const friendId = useParams().id;
+    // const friendId = useParams().id;
+    const friendId = props.id;
 
     useEffect(() => {
         fetch(`/api/friendship/${friendId}`, {

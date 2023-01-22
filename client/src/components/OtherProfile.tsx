@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 export default function OtherProfile(props) {
     const [user, setUser] = useState<any>({});
     const { id } = useParams();
-    // console.log("otherProfile ID: ", id);
+    console.log("otherProfile ID: ", id);
 
     const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ export default function OtherProfile(props) {
                         <p className="bio-editor mt-4">
                             <span>{user.userbio || "No bio yet"}</span>
                         </p>
-                        <FriendButton />
+                        <FriendButton id={id} />
                     </Col>
                 </Row>
             </Container>
