@@ -24,7 +24,7 @@ export default function FindFriends() {
     console.log("friends: ", friends);
 
     const wannabees = friends?.filter(
-        (f) => !f.accepted && f.sender_id != userId
+        (f) => !f.accepted && f.sender_id != userId && f.id != userId
     );
     const accepted = friends?.filter((f) => f.accepted && f.id != userId);
 
