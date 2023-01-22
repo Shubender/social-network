@@ -121,7 +121,7 @@ module.exports.findAllFriendships = (userId) => {
     const query = `
         SELECT  * FROM friendships
         JOIN users
-        ON users.id = friendships.sender_id 
+        ON (users.id = friendships.sender_id OR users.id = friendships.recipient_id) 
         WHERE (recipient_id = $1 OR sender_id = $1)
     `;
     return db.query(query, [userId]);
