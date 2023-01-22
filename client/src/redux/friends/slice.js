@@ -1,4 +1,4 @@
-export default function friendsReducer(friendships = {}, action) {
+export default function friendsReducer(friendships = null, action) {
     if (action.type == "friendships/get") {
         console.log("friends from slice: ", action.payload);
         return (friendships = action.payload);
