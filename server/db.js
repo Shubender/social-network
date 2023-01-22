@@ -117,13 +117,12 @@ module.exports.acceptFriendship = (user1, user2) => {
     return db.query(query, [user1, user2]);
 };
 
-module.exports.findAllFriendships = (recipient_id) => {
+module.exports.findAllFriendships = (userId) => {
     const query = `
-        SELECT friendships.id AS friendshipId, * 
-        FROM friendships
+        SELECT  * FROM friendships
         JOIN users
         ON users.id = friendships.sender_id 
         WHERE (recipient_id = $1 OR sender_id = $1)
     `;
-    return db.query(query, [recipient_id]);
+    return db.query(query, [userId]);
 };

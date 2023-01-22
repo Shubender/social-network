@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendships } from "../redux/friends/slice";
+import FriendButton from "../components/FriendButton";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -57,11 +58,14 @@ export default function FindFriends() {
                                     {user.firstname} {user.lastname}
                                 </Card.Title>
                                 <Card.Text>{user.userbio}</Card.Text>
-                                <Link to={`/user/${user.id}`}>
-                                    <Button variant="outline-primary">
-                                        View profile
-                                    </Button>
-                                </Link>
+                                <div className="d-grid gap-2">
+                                    <Link to={`/user/${user.id}`}>
+                                        <Button variant="outline-primary">
+                                            View profile
+                                        </Button>
+                                        <FriendButton id={user.id} />
+                                    </Link>
+                                </div>
                             </Card.Body>
                         </Card>
                     ))}
@@ -83,10 +87,12 @@ export default function FindFriends() {
                                     {user.firstname} {user.lastname}
                                 </Card.Title>
                                 <Card.Text>{user.userbio}</Card.Text>
+                                <div className="d-grid gap-2"></div>
                                 <Link to={`/user/${user.id}`}>
                                     <Button variant="outline-primary">
                                         View profile
                                     </Button>
+                                    <FriendButton id={user.id} />
                                 </Link>
                             </Card.Body>
                         </Card>
