@@ -2,7 +2,12 @@
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 
-export default function ProfilePic({ togglePopup, username, imgFromApp, picClass }) {
+export default function ProfilePic({
+    togglePopup,
+    username,
+    imgFromApp,
+    picClass,
+}) {
     imgFromApp = imgFromApp || "/no_photo.png";
 
     return (
@@ -11,7 +16,8 @@ export default function ProfilePic({ togglePopup, username, imgFromApp, picClass
                 src={imgFromApp}
                 alt={username}
                 onClick={togglePopup}
-                rounded
+                roundedCircle
+                thumbnail
                 className={picClass}
             />
             {/* <button onClick={() => changeName("Spiced")}>Change Name</button> */}

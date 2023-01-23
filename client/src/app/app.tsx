@@ -176,7 +176,7 @@ export class App extends Component<any, any> {
         return (
             <div className="App">
                 <header>
-                    <Navbar bg="dark" variant="dark" expand="lg">
+                    <Navbar bg="info" variant="light" expand="lg">
                         <Container>
                             <Navbar.Brand href="/">FalseWorld</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
