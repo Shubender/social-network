@@ -6,6 +6,8 @@ import FriendButton from "../components/FriendButton";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+
 // import Container from "react-bootstrap/Container";
 // import Form from "react-bootstrap/Form";
 
@@ -41,9 +43,10 @@ export default function FindFriends() {
     }, []);
 
     return (
-        <div>
+        <Container>
             <div>
                 <h3>Want friendship:</h3>
+                <br />
                 <div className="users-list">
                     {wannabees.map((user) => (
                         <Card key={user.id} style={{ width: "15rem" }}>
@@ -72,7 +75,9 @@ export default function FindFriends() {
                 </div>
             </div>
             <div>
+                <br />
                 <h3>Your friends:</h3>
+                <br />
                 <div className="users-list">
                     {accepted.map((user) => (
                         <Card key={user.id} style={{ width: "15rem" }}>
@@ -99,6 +104,6 @@ export default function FindFriends() {
                     ))}
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

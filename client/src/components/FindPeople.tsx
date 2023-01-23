@@ -47,13 +47,13 @@ export default function FindPeople() {
     }, [searchUsers]);
 
     return (
-        <div>
+        <Container>
             <h2>Find People</h2>
             <div>
                 <h3>Currently joined:</h3>
                 <div className="users-list">
                     {newUsers.map((user) => (
-                        <Card key={user.id} className="user-card">
+                        <Card key={user.id} className="user-card mx-auto">
                             <Card.Img
                                 variant="top"
                                 src={user.imageurl}
@@ -98,7 +98,7 @@ export default function FindPeople() {
                 {foundUsers.length !== 0 && (
                     <div className="users-list">
                         {foundUsers.map((user) => (
-                            <Card key={user.id} className="user-card">
+                            <Card key={user.id} className="user-card mx-auto">
                                 <Card.Img
                                     variant="top"
                                     src={user.imageurl}
@@ -121,6 +121,6 @@ export default function FindPeople() {
                     </div>
                 )}
             </div>
-        </div>
+        </Container>
     );
 }
