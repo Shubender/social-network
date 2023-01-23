@@ -145,15 +145,29 @@ export class App extends Component<any, any> {
 
     handleSingOut = (event) => {
         event.preventDefault();
-        console.log("test sign out");
+        // console.log("test sign out");
         fetch("/sing-out")
             .then((res) => res.json())
             .then((data) => {
-                console.log("sign out: ", data);
+                // console.log("sign out: ", data);
                 location.assign("/login");
             })
             .catch((err) => {
                 console.log("sign out error: ", err);
+            });
+    };
+
+    handleDelUser = (event) => {
+        event.preventDefault();
+        console.log("test del user");
+        fetch("/del-user")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("sign out: ", data);
+                location.assign("/");
+            })
+            .catch((err) => {
+                console.log("del user error: ", err);
             });
     };
 
@@ -183,7 +197,10 @@ export class App extends Component<any, any> {
                                         <NavDropdown.Item href="#action/3.2">
                                             Another action
                                         </NavDropdown.Item> */}
-                                        <NavDropdown.Item href="#action/3.3">
+                                        <NavDropdown.Item
+                                            href=""
+                                            onClick={this.handleDelUser}
+                                        >
                                             Delete Account
                                         </NavDropdown.Item>
                                         <NavDropdown.Divider />

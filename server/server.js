@@ -24,6 +24,7 @@ const {
     deleteFriendship,
     acceptFriendship,
     findAllFriendships,
+    deleteUser,
 } = require("./db.js");
 
 // const { emailRes } = require("./ses");
@@ -167,6 +168,14 @@ app.get("/sing-out", (req, res) => {
     req.session.userId = false;
     console.log("server sing-out: ", req.session.userId);
     res.json({ success: true });
+});
+
+app.get("/del-user", (req, res) => {
+    deleteUser(req.session.userId).then(() => {
+        req.session.userId = false;
+        console.log("server del user: ", req.session.userId);
+        res.json({ success: true });
+    });
 });
 
 app.post("/searchUsers", (req, res) => {

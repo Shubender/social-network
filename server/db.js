@@ -126,3 +126,21 @@ module.exports.findAllFriendships = (userId) => {
     `;
     return db.query(query, [userId]);
 };
+
+module.exports.deleteUser = (userId) => {
+    return db
+        .query(
+            `
+            DELETE FROM friendships
+            WHERE (recipient_id = $1 OR sender_id = $1)`,
+            [userId]
+        )
+        .then(() => {
+            db.query(
+                `
+                DELETE FROM users
+                WHERE id = $1;`,
+                [userId]
+            );
+        });
+};
