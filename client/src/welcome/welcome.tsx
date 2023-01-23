@@ -7,6 +7,7 @@ import ResetPass from "../components/ResetPassword";
 export function Welcome() {
     return (
         <div className="text-center">
+            <br />
             <Logo />
             <div>
                 <BrowserRouter>
