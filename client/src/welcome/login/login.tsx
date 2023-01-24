@@ -134,6 +134,17 @@ export default class Login extends Component<any, any> {
                                                     </a>
                                                 </span>
                                             </div>
+                                            <div className="mt-3">
+                                                <span className="mb-0  text-center">
+                                                    Need change password?{" "}
+                                                    <a
+                                                        href="http://localhost:3000/"
+                                                        className="text-primary fw-bold"
+                                                    >
+                                                        Reset it!
+                                                    </a>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </Card.Body>
