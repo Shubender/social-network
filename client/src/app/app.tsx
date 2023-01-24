@@ -8,6 +8,7 @@ import BioEditor from "../components/BioEditor";
 import FindPeople from "../components/FindPeople";
 import OtherProfile from "../components/OtherProfile";
 import FindFriends from "../components/Friends";
+import Chat from "../components/Chat";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
@@ -185,7 +186,7 @@ export class App extends Component<any, any> {
                                     <Nav.Link href="/users">
                                         Find People
                                     </Nav.Link>
-                                    {/* <Nav.Link href="/chat">Chat</Nav.Link> */}
+                                    <Nav.Link href="/chat">Chat</Nav.Link>
                                     <Nav.Link href="/friends">Friends</Nav.Link>
                                     <NavDropdown
                                         title="Menu"
@@ -287,6 +288,7 @@ export class App extends Component<any, any> {
                                         />
                                     }
                                 ></Route>
+                                <Route path="/chat" element={<Chat />}></Route>
                             </Routes>
                         </BrowserRouter>
                     </div>

@@ -34,3 +34,10 @@
 .user-card {
     width: 202px;
 }
+
+.chat {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
