@@ -6,6 +6,7 @@ export default function FriendButton(props) {
     const [btnState, setBtnState] = useState("Default");
     // const friendId = useParams().id;
     const friendId = props.id;
+    const btnSize = props.size || "lg";
 
     useEffect(() => {
         fetch(`/api/friendship/${friendId}`, {
@@ -77,6 +78,7 @@ export default function FriendButton(props) {
             type="submit"
             className="m-3"
             onClick={onClick}
+            size={btnSize}
         >
             {btnState}
         </Button>

@@ -48,8 +48,9 @@ export default function FindPeople() {
 
     return (
         <Container>
-            <h2>Find People</h2>
+            {/* <h2>Find People</h2> */}
             <div>
+                <br />
                 <h3>Currently joined:</h3>
                 <div className="users-list">
                     {newUsers.map((user) => (
@@ -93,7 +94,6 @@ export default function FindPeople() {
                         />
                     </Form.Group>
                 </Form>
-                <br />
                 <br />
                 {foundUsers.length !== 0 && (
                     <div className="users-list">

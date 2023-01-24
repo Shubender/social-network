@@ -45,11 +45,12 @@ export default function FindFriends() {
     return (
         <Container>
             <div>
+                <br />
                 <h3>Want friendship:</h3>
                 <br />
                 <div className="users-list">
                     {wannabees.map((user) => (
-                        <Card key={user.id} style={{ width: "15rem" }}>
+                        <Card key={user.id} className="user-card mx-auto">
                             <Card.Img
                                 variant="top"
                                 src={user.imageurl}
@@ -63,10 +64,14 @@ export default function FindFriends() {
                                 <Card.Text>{user.userbio}</Card.Text>
                                 <div className="d-grid gap-2">
                                     <Link to={`/user/${user.id}`}>
-                                        <Button variant="outline-primary">
+                                        <Button
+                                            variant="outline-primary"
+                                            className="m-3"
+                                            size="sm"
+                                        >
                                             View profile
                                         </Button>
-                                        <FriendButton id={user.id} />
+                                        <FriendButton id={user.id} size="sm" />
                                     </Link>
                                 </div>
                             </Card.Body>
@@ -80,7 +85,7 @@ export default function FindFriends() {
                 <br />
                 <div className="users-list">
                     {accepted.map((user) => (
-                        <Card key={user.id} style={{ width: "15rem" }}>
+                        <Card key={user.id} className="user-card mx-auto">
                             <Card.Img
                                 variant="top"
                                 src={user.imageurl}
@@ -94,10 +99,14 @@ export default function FindFriends() {
                                 <Card.Text>{user.userbio}</Card.Text>
                                 <div className="d-grid gap-2"></div>
                                 <Link to={`/user/${user.id}`}>
-                                    <Button variant="outline-primary">
+                                    <Button
+                                        variant="outline-primary"
+                                        className="m-3"
+                                        size="sm"
+                                    >
                                         View profile
                                     </Button>
-                                    <FriendButton id={user.id} />
+                                    <FriendButton id={user.id} size="sm" />
                                 </Link>
                             </Card.Body>
                         </Card>
